@@ -10,6 +10,7 @@
                 "article": "Article",
                 "city": "City",
                 "client": "Client",
+                "type": "Type",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

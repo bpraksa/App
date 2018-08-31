@@ -1,0 +1,23 @@
+
+{
+    "brezaApp": {
+        "type" : {
+            "home": {
+                "title": "Types",
+                "createLabel": "Kreiraj novi Type",
+                "createOrEditLabel": "Kreirajte ili izmenite Type"
+            },
+            "created": "Kreiran je novi Type pod nazivom {{ param }}",
+            "updated": "Type pod nazivom {{ param }} je ažuriran",
+            "deleted": "Type pod nazivom {{ param }} je obrisan",
+            "delete": {
+                "question": "Da li ste sigurni da želite da obrišete Type pod nazivom {{ id }}?"
+            },
+            "detail": {
+                "title": "Type"
+            },
+            "name": "Name",
+            "description": "Description"
+        }
+    }
+}
