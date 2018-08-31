@@ -1,0 +1,4 @@
+id;name;address;phone_number;email;city_id
+1;Hotel Moskva;Petra Petrovica 1;011-123-456;null;1
+2;Hotel Bristol;Milana Milanovica 2;011-123-456;null;1
+3;Hotel Ambasador;Nikole Nikolica 3;018-987-654;null;3
