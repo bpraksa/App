@@ -19,6 +19,7 @@
             <th><span jhiTranslate="brezaApp.article.articleNumber">Article Number</span></th>
             <th><span jhiTranslate="brezaApp.article.price">Price</span></th>
             <th><span jhiTranslate="brezaApp.article.availableAmount">Available Amount</span></th>
+            <th><span jhiTranslate="brezaApp.article.type">Type</span></th>
             <th></th>
             </tr>
             </thead>
@@ -29,6 +30,11 @@
                 <td>{{article.articleNumber}}</td>
                 <td>{{article.price}}</td>
                 <td>{{article.availableAmount}}</td>
+                <td>
+                    <div *ngIf="article.type">
+                        <a [routerLink]="['../type', article.type?.id, 'view' ]" >{{article.type?.name}}</a>
+                    </div>
+                </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

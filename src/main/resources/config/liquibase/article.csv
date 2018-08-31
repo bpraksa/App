@@ -1,6 +1,6 @@
-id;name;article_number;price;available_amount
-1;Jastuk;JA-001;1500;500
-2;Krevet;KR-001;20000;100
-3;Dusek;DU-001;15000;250
-4;Jorgan;JO-001;3000;200
-5;Cebe;CE-001;2000;300
+id;name;article_number;price;available_amount;type_id
+1;Jastuk;JA-001;1500;500;4
+2;Krevet;KR-001;20000;100;1
+3;Dusek;DU-001;15000;250;2
+4;Jorgan;JO-001;3000;200;3
+5;Cebe;CE-001;2000;300;3
