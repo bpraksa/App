@@ -9,6 +9,7 @@
                 "main": "Entiteti",
                 "article": "Article",
                 "city": "City",
+                "client": "Client",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

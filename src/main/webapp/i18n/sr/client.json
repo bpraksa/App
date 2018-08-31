@@ -1,0 +1,26 @@
+
+{
+    "brezaApp": {
+        "client" : {
+            "home": {
+                "title": "Clients",
+                "createLabel": "Kreiraj novi Client",
+                "createOrEditLabel": "Kreirajte ili izmenite Client"
+            },
+            "created": "Kreiran je novi Client pod nazivom {{ param }}",
+            "updated": "Client pod nazivom {{ param }} je ažuriran",
+            "deleted": "Client pod nazivom {{ param }} je obrisan",
+            "delete": {
+                "question": "Da li ste sigurni da želite da obrišete Client pod nazivom {{ id }}?"
+            },
+            "detail": {
+                "title": "Client"
+            },
+            "name": "Name",
+            "address": "Address",
+            "phoneNumber": "Phone Number",
+            "email": "Email",
+            "city": "City"
+        }
+    }
+}
