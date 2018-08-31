@@ -1,0 +1,25 @@
+
+{
+    "brezaApp": {
+        "article" : {
+            "home": {
+                "title": "Articles",
+                "createLabel": "Kreiraj novi Article",
+                "createOrEditLabel": "Kreirajte ili izmenite Article"
+            },
+            "created": "Kreiran je novi Article pod nazivom {{ param }}",
+            "updated": "Article pod nazivom {{ param }} je ažuriran",
+            "deleted": "Article pod nazivom {{ param }} je obrisan",
+            "delete": {
+                "question": "Da li ste sigurni da želite da obrišete Article pod nazivom {{ id }}?"
+            },
+            "detail": {
+                "title": "Article"
+            },
+            "name": "Name",
+            "articleNumber": "Article Number",
+            "price": "Price",
+            "availableAmount": "Available Amount"
+        }
+    }
+}
