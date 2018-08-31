@@ -1,0 +1,22 @@
+
+{
+    "brezaApp": {
+        "position" : {
+            "home": {
+                "title": "Positions",
+                "createLabel": "Kreiraj novi Position",
+                "createOrEditLabel": "Kreirajte ili izmenite Position"
+            },
+            "created": "Kreiran je novi Position pod nazivom {{ param }}",
+            "updated": "Position pod nazivom {{ param }} je ažuriran",
+            "deleted": "Position pod nazivom {{ param }} je obrisan",
+            "delete": {
+                "question": "Da li ste sigurni da želite da obrišete Position pod nazivom {{ id }}?"
+            },
+            "detail": {
+                "title": "Position"
+            },
+            "name": "Name"
+        }
+    }
+}

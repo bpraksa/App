@@ -1,0 +1,22 @@
+
+{
+    "brezaApp": {
+        "position" : {
+            "home": {
+                "title": "Positions",
+                "createLabel": "Create a new Position",
+                "createOrEditLabel": "Create or edit a Position"
+            },
+            "created": "A new Position is created with identifier {{ param }}",
+            "updated": "A Position is updated with identifier {{ param }}",
+            "deleted": "A Position is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Position {{ id }}?"
+            },
+            "detail": {
+                "title": "Position"
+            },
+            "name": "Name"
+        }
+    }
+}
