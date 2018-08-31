@@ -1,6 +1,6 @@
 {
     "*": {
-        "target": "http://localhost:8111",
+        "target": "http://localhost:8123",
         "secure": false,
         "loglevel": "debug"
     }

@@ -16,5 +16,5 @@ ADD *.war app.war
 
 ENTRYPOINT ["./entrypoint.sh"]
 
-EXPOSE 8111
+EXPOSE 8123
 

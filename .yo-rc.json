@@ -8,7 +8,7 @@
     "baseName": "breza",
     "packageName": "com.praksa.breza",
     "packageFolder": "com/praksa/breza",
-    "serverPort": "8111",
+    "serverPort": "8123",
     "authenticationType": "jwt",
     "cacheProvider": "no",
     "websocket": false,
