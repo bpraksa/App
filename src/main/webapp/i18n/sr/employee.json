@@ -1,0 +1,24 @@
+
+{
+    "brezaApp": {
+        "employee" : {
+            "home": {
+                "title": "Employees",
+                "createLabel": "Kreiraj novi Employee",
+                "createOrEditLabel": "Kreirajte ili izmenite Employee"
+            },
+            "created": "Kreiran je novi Employee pod nazivom {{ param }}",
+            "updated": "Employee pod nazivom {{ param }} je ažuriran",
+            "deleted": "Employee pod nazivom {{ param }} je obrisan",
+            "delete": {
+                "question": "Da li ste sigurni da želite da obrišete Employee pod nazivom {{ id }}?"
+            },
+            "detail": {
+                "title": "Employee"
+            },
+            "firstName": "First Name",
+            "lastName": "Last Name",
+            "position": "Position"
+        }
+    }
+}

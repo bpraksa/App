@@ -1,0 +1,37 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="employee">
+            <h2><span jhiTranslate="brezaApp.employee.detail.title">Employee</span> {{employee.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="brezaApp.employee.firstName">First Name</span></dt>
+                <dd>
+                    <span>{{employee.firstName}}</span>
+                </dd>
+                <dt><span jhiTranslate="brezaApp.employee.lastName">Last Name</span></dt>
+                <dd>
+                    <span>{{employee.lastName}}</span>
+                </dd>
+                <dt><span jhiTranslate="brezaApp.employee.position">Position</span></dt>
+                <dd>
+                    <div *ngIf="employee.position">
+                        <a [routerLink]="['/position', employee.position?.id, 'view']">{{employee.position?.name}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/employee', employee.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
