@@ -1,0 +1,23 @@
+
+{
+    "brezaApp": {
+        "city" : {
+            "home": {
+                "title": "Cities",
+                "createLabel": "Kreiraj novi City",
+                "createOrEditLabel": "Kreirajte ili izmenite City"
+            },
+            "created": "Kreiran je novi City pod nazivom {{ param }}",
+            "updated": "City pod nazivom {{ param }} je ažuriran",
+            "deleted": "City pod nazivom {{ param }} je obrisan",
+            "delete": {
+                "question": "Da li ste sigurni da želite da obrišete City pod nazivom {{ id }}?"
+            },
+            "detail": {
+                "title": "City"
+            },
+            "name": "Name",
+            "zipcode": "Zipcode"
+        }
+    }
+}
