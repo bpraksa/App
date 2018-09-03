@@ -26,5 +26,5 @@
     "service": "no",
     "entityTableName": "city",
     "jpaMetamodelFiltering": false,
-    "pagination": "pagination"
+    "pagination": "no"
 }
