@@ -6,6 +6,7 @@ import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 import { IPosition } from 'app/shared/model/position.model';
 import { Principal } from 'app/core';
 import { PositionService } from './position.service';
+import { LocalDataSource } from 'ng2-smart-table';
 
 @Component({
     selector: 'jhi-position',
@@ -15,6 +16,19 @@ export class PositionComponent implements OnInit, OnDestroy {
     positions: IPosition[];
     currentAccount: any;
     eventSubscriber: Subscription;
+
+    settings = {
+        columns: {
+            id: {
+                title: 'ID'
+            },
+            name: {
+                title: 'Name'
+            }
+        }
+    };
+
+    data: LocalDataSource;
 
     constructor(
         private positionService: PositionService,
@@ -27,6 +41,7 @@ export class PositionComponent implements OnInit, OnDestroy {
         this.positionService.query().subscribe(
             (res: HttpResponse<IPosition[]>) => {
                 this.positions = res.body;
+                this.data = new LocalDataSource(res.body);
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
