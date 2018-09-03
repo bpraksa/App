@@ -22,13 +22,16 @@ export class EmployeeComponent implements OnInit, OnDestroy {
             id: {
                 title: 'ID'
             },
-            firstName: {
-                title: 'First Name'
+            // firstName: {
+            //     title: 'First Name'
+            // },
+            // lastName: {
+            //     title: 'Last Name'
+            // },
+            fullName: {
+                title: 'Full Name'
             },
-            lastName: {
-                title: 'Last Name'
-            },
-            position: {
+            employeePosition: {
                 title: 'Position'
             }
         }
@@ -47,7 +50,12 @@ export class EmployeeComponent implements OnInit, OnDestroy {
         this.employeeService.query().subscribe(
             (res: HttpResponse<IEmployee[]>) => {
                 this.employees = res.body;
-                this.data = new LocalDataSource(res.body);
+                this.data = new LocalDataSource();
+                for (const employee of res.body) {
+                    employee.fullName = employee.firstName + ' ' + employee.lastName;
+                    employee.employeePosition = employee.position.name;
+                    this.data.add(employee);
+                }
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
