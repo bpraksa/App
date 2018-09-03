@@ -11,11 +11,12 @@ import {
     employeeRoute,
     employeePopupRoute
 } from './';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
 
 const ENTITY_STATES = [...employeeRoute, ...employeePopupRoute];
 
 @NgModule({
-    imports: [BrezaSharedModule, RouterModule.forChild(ENTITY_STATES)],
+    imports: [BrezaSharedModule, RouterModule.forChild(ENTITY_STATES), Ng2SmartTableModule],
     declarations: [
         EmployeeComponent,
         EmployeeDetailComponent,
