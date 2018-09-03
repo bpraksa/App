@@ -6,6 +6,7 @@ import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 import { IType } from 'app/shared/model/type.model';
 import { Principal } from 'app/core';
 import { TypeService } from './type.service';
+import { LocalDataSource } from 'ng2-smart-table';
 
 @Component({
     selector: 'jhi-type',
@@ -15,6 +16,22 @@ export class TypeComponent implements OnInit, OnDestroy {
     types: IType[];
     currentAccount: any;
     eventSubscriber: Subscription;
+
+    settings = {
+        columns: {
+            id: {
+                title: 'ID'
+            },
+            name: {
+                title: 'Name'
+            },
+            description: {
+                title: 'Description'
+            }
+        }
+    };
+
+    data: LocalDataSource;
 
     constructor(
         private typeService: TypeService,
@@ -27,6 +44,7 @@ export class TypeComponent implements OnInit, OnDestroy {
         this.typeService.query().subscribe(
             (res: HttpResponse<IType[]>) => {
                 this.types = res.body;
+                this.data = new LocalDataSource(res.body);
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
