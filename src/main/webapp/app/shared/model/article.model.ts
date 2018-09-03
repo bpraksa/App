@@ -7,6 +7,8 @@ export interface IArticle {
     price?: number;
     availableAmount?: number;
     type?: IType;
+    // smart table column
+    articleType?: string;
 }
 
 export class Article implements IArticle {
