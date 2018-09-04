@@ -1,0 +1,26 @@
+
+{
+    "brezaApp": {
+        "onlineOrder" : {
+            "home": {
+                "title": "Online Orders",
+                "createLabel": "Create a new Online Order",
+                "createOrEditLabel": "Create or edit a Online Order"
+            },
+            "created": "A new Online Order is created with identifier {{ param }}",
+            "updated": "A Online Order is updated with identifier {{ param }}",
+            "deleted": "A Online Order is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Online Order {{ id }}?"
+            },
+            "detail": {
+                "title": "Online Order"
+            },
+            "address": "Address",
+            "phoneNumber": "Phone Number",
+            "totalPrice": "Total Price",
+            "city": "City",
+            "client": "Client"
+        }
+    }
+}

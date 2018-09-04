@@ -1,0 +1,39 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="onlineOrderItem">
+            <h2><span jhiTranslate="brezaApp.onlineOrderItem.detail.title">Online Order Item</span> {{onlineOrderItem.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="brezaApp.onlineOrderItem.orderedAmount">Ordered Amount</span></dt>
+                <dd>
+                    <span>{{onlineOrderItem.orderedAmount}}</span>
+                </dd>
+                <dt><span jhiTranslate="brezaApp.onlineOrderItem.onlineOrder">Online Order</span></dt>
+                <dd>
+                    <div *ngIf="onlineOrderItem.onlineOrder">
+                        <a [routerLink]="['/online-order', onlineOrderItem.onlineOrder?.id, 'view']">{{onlineOrderItem.onlineOrder?.id}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="brezaApp.onlineOrderItem.article">Article</span></dt>
+                <dd>
+                    <div *ngIf="onlineOrderItem.article">
+                        <a [routerLink]="['/article', onlineOrderItem.article?.id, 'view']">{{onlineOrderItem.article?.name}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/online-order-item', onlineOrderItem.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

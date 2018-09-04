@@ -1,0 +1,24 @@
+
+{
+    "brezaApp": {
+        "onlineOrderItem" : {
+            "home": {
+                "title": "Online Order Items",
+                "createLabel": "Kreiraj novi Online Order Item",
+                "createOrEditLabel": "Kreirajte ili izmenite Online Order Item"
+            },
+            "created": "Kreiran je novi Online Order Item pod nazivom {{ param }}",
+            "updated": "Online Order Item pod nazivom {{ param }} je ažuriran",
+            "deleted": "Online Order Item pod nazivom {{ param }} je obrisan",
+            "delete": {
+                "question": "Da li ste sigurni da želite da obrišete Online Order Item pod nazivom {{ id }}?"
+            },
+            "detail": {
+                "title": "Online Order Item"
+            },
+            "orderedAmount": "Ordered Amount",
+            "onlineOrder": "Online Order",
+            "article": "Article"
+        }
+    }
+}
