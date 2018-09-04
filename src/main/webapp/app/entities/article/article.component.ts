@@ -7,6 +7,7 @@ import { IArticle } from 'app/shared/model/article.model';
 import { Principal } from 'app/core';
 import { ArticleService } from './article.service';
 import { LocalDataSource } from 'ng2-smart-table';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'jhi-article',
@@ -18,6 +19,10 @@ export class ArticleComponent implements OnInit, OnDestroy {
     eventSubscriber: Subscription;
 
     settings = {
+        mode: 'external',
+        add: {
+            addButtonContent: 'Create a New Article'
+        },
         columns: {
             id: {
                 title: 'ID'
@@ -46,7 +51,8 @@ export class ArticleComponent implements OnInit, OnDestroy {
         private articleService: ArticleService,
         private jhiAlertService: JhiAlertService,
         private eventManager: JhiEventManager,
-        private principal: Principal
+        private principal: Principal,
+        private router: Router
     ) {}
 
     loadAll() {
@@ -88,5 +94,9 @@ export class ArticleComponent implements OnInit, OnDestroy {
 
     private onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    onCreate() {
+        this.router.navigate(['article/new']);
     }
 }
