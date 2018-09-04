@@ -13,6 +13,7 @@
                 "type": "Type",
                 "position": "Position",
                 "employee": "Employee",
+                "vehicle": "Vehicle",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

@@ -1,0 +1,24 @@
+
+{
+    "brezaApp": {
+        "vehicle" : {
+            "home": {
+                "title": "Vehicles",
+                "createLabel": "Kreiraj novi Vehicle",
+                "createOrEditLabel": "Kreirajte ili izmenite Vehicle"
+            },
+            "created": "Kreiran je novi Vehicle pod nazivom {{ param }}",
+            "updated": "Vehicle pod nazivom {{ param }} je ažuriran",
+            "deleted": "Vehicle pod nazivom {{ param }} je obrisan",
+            "delete": {
+                "question": "Da li ste sigurni da želite da obrišete Vehicle pod nazivom {{ id }}?"
+            },
+            "detail": {
+                "title": "Vehicle"
+            },
+            "vehicleNumber": "Vehicle Number",
+            "brand": "Brand",
+            "model": "Model"
+        }
+    }
+}

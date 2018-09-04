@@ -6,6 +6,7 @@ import { BrezaClientModule } from './client/client.module';
 import { BrezaTypeModule } from './type/type.module';
 import { BrezaPositionModule } from './position/position.module';
 import { BrezaEmployeeModule } from './employee/employee.module';
+import { BrezaVehicleModule } from './vehicle/vehicle.module';
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
 @NgModule({
@@ -17,6 +18,7 @@ import { BrezaEmployeeModule } from './employee/employee.module';
         BrezaTypeModule,
         BrezaPositionModule,
         BrezaEmployeeModule,
+        BrezaVehicleModule,
         /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
     ],
     declarations: [],

@@ -1,0 +1,28 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "vehicleNumber",
+            "fieldType": "String",
+            "fieldValidateRules": []
+        },
+        {
+            "fieldName": "brand",
+            "fieldType": "String",
+            "fieldValidateRules": []
+        },
+        {
+            "fieldName": "model",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20180904091247",
+    "dto": "no",
+    "searchEngine": false,
+    "service": "no",
+    "entityTableName": "vehicle",
+    "jpaMetamodelFiltering": false,
+    "pagination": "no"
+}
