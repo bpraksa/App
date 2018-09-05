@@ -6,6 +6,7 @@ import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 import { IOnlineOrderItem } from 'app/shared/model/online-order-item.model';
 import { Principal } from 'app/core';
 import { OnlineOrderItemService } from './online-order-item.service';
+import { LocalDataSource } from 'ng2-smart-table';
 
 @Component({
     selector: 'jhi-online-order-item',
@@ -15,6 +16,50 @@ export class OnlineOrderItemComponent implements OnInit, OnDestroy {
     onlineOrderItems: IOnlineOrderItem[];
     currentAccount: any;
     eventSubscriber: Subscription;
+
+    settings = {
+        mode: 'external',
+        add: {
+            addButtonContent: 'Create a New Article'
+        },
+        actions: {
+            edit: false,
+            delete: false,
+            custom: [
+                {
+                    name: 'view',
+                    title: 'View '
+                },
+                {
+                    name: 'edit',
+                    title: 'Edit '
+                },
+                {
+                    name: 'delete',
+                    title: 'Delete '
+                }
+            ]
+        },
+        columns: {
+            id: {
+                title: 'ID'
+            },
+            articleName: {
+                title: 'Article'
+            },
+            articlePrice: {
+                title: 'Price per Unit'
+            },
+            orderedAmount: {
+                title: 'Ordered Amount'
+            },
+            itemPrice: {
+                title: 'Price'
+            }
+        }
+    };
+
+    data: LocalDataSource;
 
     constructor(
         private onlineOrderItemService: OnlineOrderItemService,
@@ -27,6 +72,13 @@ export class OnlineOrderItemComponent implements OnInit, OnDestroy {
         this.onlineOrderItemService.query().subscribe(
             (res: HttpResponse<IOnlineOrderItem[]>) => {
                 this.onlineOrderItems = res.body;
+                this.data = new LocalDataSource();
+                for (const onlineOrderItem of res.body) {
+                    onlineOrderItem.articleName = onlineOrderItem.article.name;
+                    onlineOrderItem.articlePrice = onlineOrderItem.article.price;
+                    onlineOrderItem.itemPrice = onlineOrderItem.article.price * onlineOrderItem.orderedAmount;
+                    this.data.add(onlineOrderItem);
+                }
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );

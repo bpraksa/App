@@ -7,6 +7,9 @@ export interface IOnlineOrderItem {
     itemPrice?: number;
     onlineOrder?: IOnlineOrder;
     article?: IArticle;
+    // smart table column
+    articleName?: string;
+    articlePrice?: number;
 }
 
 export class OnlineOrderItem implements IOnlineOrderItem {

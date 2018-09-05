@@ -11,11 +11,12 @@ import {
     onlineOrderItemRoute,
     onlineOrderItemPopupRoute
 } from './';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
 
 const ENTITY_STATES = [...onlineOrderItemRoute, ...onlineOrderItemPopupRoute];
 
 @NgModule({
-    imports: [BrezaSharedModule, RouterModule.forChild(ENTITY_STATES)],
+    imports: [BrezaSharedModule, RouterModule.forChild(ENTITY_STATES), Ng2SmartTableModule],
     declarations: [
         OnlineOrderItemComponent,
         OnlineOrderItemDetailComponent,
