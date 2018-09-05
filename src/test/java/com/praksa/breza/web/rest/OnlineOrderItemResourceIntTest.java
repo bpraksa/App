@@ -44,6 +44,9 @@ public class OnlineOrderItemResourceIntTest {
     private static final Long DEFAULT_ORDERED_AMOUNT = 1L;
     private static final Long UPDATED_ORDERED_AMOUNT = 2L;
 
+    private static final Double DEFAULT_ITEM_PRICE = 1D;
+    private static final Double UPDATED_ITEM_PRICE = 2D;
+
     @Autowired
     private OnlineOrderItemRepository onlineOrderItemRepository;
 
@@ -83,7 +86,8 @@ public class OnlineOrderItemResourceIntTest {
      */
     public static OnlineOrderItem createEntity(EntityManager em) {
         OnlineOrderItem onlineOrderItem = new OnlineOrderItem()
-            .orderedAmount(DEFAULT_ORDERED_AMOUNT);
+            .orderedAmount(DEFAULT_ORDERED_AMOUNT)
+            .itemPrice(DEFAULT_ITEM_PRICE);
         // Add required entity
         OnlineOrder onlineOrder = OnlineOrderResourceIntTest.createEntity(em);
         em.persist(onlineOrder);
@@ -118,6 +122,7 @@ public class OnlineOrderItemResourceIntTest {
         assertThat(onlineOrderItemList).hasSize(databaseSizeBeforeCreate + 1);
         OnlineOrderItem testOnlineOrderItem = onlineOrderItemList.get(onlineOrderItemList.size() - 1);
         assertThat(testOnlineOrderItem.getOrderedAmount()).isEqualTo(DEFAULT_ORDERED_AMOUNT);
+        assertThat(testOnlineOrderItem.getItemPrice()).isEqualTo(DEFAULT_ITEM_PRICE);
     }
 
     @Test
@@ -141,6 +146,24 @@ public class OnlineOrderItemResourceIntTest {
 
     @Test
     @Transactional
+    public void checkOrderedAmountIsRequired() throws Exception {
+        int databaseSizeBeforeTest = onlineOrderItemRepository.findAll().size();
+        // set the field null
+        onlineOrderItem.setOrderedAmount(null);
+
+        // Create the OnlineOrderItem, which fails.
+
+        restOnlineOrderItemMockMvc.perform(post("/api/online-order-items")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(onlineOrderItem)))
+            .andExpect(status().isBadRequest());
+
+        List<OnlineOrderItem> onlineOrderItemList = onlineOrderItemRepository.findAll();
+        assertThat(onlineOrderItemList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllOnlineOrderItems() throws Exception {
         // Initialize the database
         onlineOrderItemRepository.saveAndFlush(onlineOrderItem);
@@ -150,7 +173,8 @@ public class OnlineOrderItemResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(onlineOrderItem.getId().intValue())))
-            .andExpect(jsonPath("$.[*].orderedAmount").value(hasItem(DEFAULT_ORDERED_AMOUNT.intValue())));
+            .andExpect(jsonPath("$.[*].orderedAmount").value(hasItem(DEFAULT_ORDERED_AMOUNT.intValue())))
+            .andExpect(jsonPath("$.[*].itemPrice").value(hasItem(DEFAULT_ITEM_PRICE.doubleValue())));
     }
     
 
@@ -165,7 +189,8 @@ public class OnlineOrderItemResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(onlineOrderItem.getId().intValue()))
-            .andExpect(jsonPath("$.orderedAmount").value(DEFAULT_ORDERED_AMOUNT.intValue()));
+            .andExpect(jsonPath("$.orderedAmount").value(DEFAULT_ORDERED_AMOUNT.intValue()))
+            .andExpect(jsonPath("$.itemPrice").value(DEFAULT_ITEM_PRICE.doubleValue()));
     }
     @Test
     @Transactional
@@ -188,7 +213,8 @@ public class OnlineOrderItemResourceIntTest {
         // Disconnect from session so that the updates on updatedOnlineOrderItem are not directly saved in db
         em.detach(updatedOnlineOrderItem);
         updatedOnlineOrderItem
-            .orderedAmount(UPDATED_ORDERED_AMOUNT);
+            .orderedAmount(UPDATED_ORDERED_AMOUNT)
+            .itemPrice(UPDATED_ITEM_PRICE);
 
         restOnlineOrderItemMockMvc.perform(put("/api/online-order-items")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -200,6 +226,7 @@ public class OnlineOrderItemResourceIntTest {
         assertThat(onlineOrderItemList).hasSize(databaseSizeBeforeUpdate);
         OnlineOrderItem testOnlineOrderItem = onlineOrderItemList.get(onlineOrderItemList.size() - 1);
         assertThat(testOnlineOrderItem.getOrderedAmount()).isEqualTo(UPDATED_ORDERED_AMOUNT);
+        assertThat(testOnlineOrderItem.getItemPrice()).isEqualTo(UPDATED_ITEM_PRICE);
     }
 
     @Test

@@ -151,6 +151,42 @@ public class OnlineOrderResourceIntTest {
 
     @Test
     @Transactional
+    public void checkAddressIsRequired() throws Exception {
+        int databaseSizeBeforeTest = onlineOrderRepository.findAll().size();
+        // set the field null
+        onlineOrder.setAddress(null);
+
+        // Create the OnlineOrder, which fails.
+
+        restOnlineOrderMockMvc.perform(post("/api/online-orders")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(onlineOrder)))
+            .andExpect(status().isBadRequest());
+
+        List<OnlineOrder> onlineOrderList = onlineOrderRepository.findAll();
+        assertThat(onlineOrderList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkPhoneNumberIsRequired() throws Exception {
+        int databaseSizeBeforeTest = onlineOrderRepository.findAll().size();
+        // set the field null
+        onlineOrder.setPhoneNumber(null);
+
+        // Create the OnlineOrder, which fails.
+
+        restOnlineOrderMockMvc.perform(post("/api/online-orders")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(onlineOrder)))
+            .andExpect(status().isBadRequest());
+
+        List<OnlineOrder> onlineOrderList = onlineOrderRepository.findAll();
+        assertThat(onlineOrderList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllOnlineOrders() throws Exception {
         // Initialize the database
         onlineOrderRepository.saveAndFlush(onlineOrder);

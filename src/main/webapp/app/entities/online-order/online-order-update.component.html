@@ -12,12 +12,24 @@
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="brezaApp.onlineOrder.address" for="field_address">Address</label>
                     <input type="text" class="form-control" name="address" id="field_address"
-                        [(ngModel)]="onlineOrder.address" />
+                        [(ngModel)]="onlineOrder.address" required/>
+                    <div [hidden]="!(editForm.controls.address?.dirty && editForm.controls.address?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.address?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="brezaApp.onlineOrder.phoneNumber" for="field_phoneNumber">Phone Number</label>
                     <input type="text" class="form-control" name="phoneNumber" id="field_phoneNumber"
-                        [(ngModel)]="onlineOrder.phoneNumber" />
+                        [(ngModel)]="onlineOrder.phoneNumber" required/>
+                    <div [hidden]="!(editForm.controls.phoneNumber?.dirty && editForm.controls.phoneNumber?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.phoneNumber?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="brezaApp.onlineOrder.totalPrice" for="field_totalPrice">Total Price</label>

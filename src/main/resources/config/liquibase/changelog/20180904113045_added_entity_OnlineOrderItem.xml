@@ -23,6 +23,10 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="ordered_amount" type="bigint">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="item_price" type="double">
                 <constraints nullable="true" />
             </column>
 
@@ -36,8 +40,8 @@
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
-
-        <loadData encoding="UTF-8"
+        
+         <loadData encoding="UTF-8"
             file="config/liquibase/online_order_item.csv"
             separator=";"
             tableName="online_order_item">

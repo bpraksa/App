@@ -21,10 +21,12 @@ public class OnlineOrder implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "address")
+    @NotNull
+    @Column(name = "address", nullable = false)
     private String address;
 
-    @Column(name = "phone_number")
+    @NotNull
+    @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
 
     @Column(name = "total_price")

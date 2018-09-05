@@ -21,8 +21,12 @@ public class OnlineOrderItem implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "ordered_amount")
+    @NotNull
+    @Column(name = "ordered_amount", nullable = false)
     private Long orderedAmount;
+
+    @Column(name = "item_price")
+    private Double itemPrice;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -54,6 +58,19 @@ public class OnlineOrderItem implements Serializable {
 
     public void setOrderedAmount(Long orderedAmount) {
         this.orderedAmount = orderedAmount;
+    }
+
+    public Double getItemPrice() {
+        return itemPrice;
+    }
+
+    public OnlineOrderItem itemPrice(Double itemPrice) {
+        this.itemPrice = itemPrice;
+        return this;
+    }
+
+    public void setItemPrice(Double itemPrice) {
+        this.itemPrice = itemPrice;
     }
 
     public OnlineOrder getOnlineOrder() {
@@ -108,6 +125,7 @@ public class OnlineOrderItem implements Serializable {
         return "OnlineOrderItem{" +
             "id=" + getId() +
             ", orderedAmount=" + getOrderedAmount() +
+            ", itemPrice=" + getItemPrice() +
             "}";
     }
 }

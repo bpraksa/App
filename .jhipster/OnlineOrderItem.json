@@ -3,7 +3,14 @@
     "fields": [
         {
             "fieldName": "orderedAmount",
-            "fieldType": "Long"
+            "fieldType": "Long",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "itemPrice",
+            "fieldType": "Double"
         }
     ],
     "relationships": [

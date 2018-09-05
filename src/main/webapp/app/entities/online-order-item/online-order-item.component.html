@@ -16,6 +16,7 @@
             <tr>
             <th><span jhiTranslate="global.field.id">ID</span></th>
             <th><span jhiTranslate="brezaApp.onlineOrderItem.orderedAmount">Ordered Amount</span></th>
+            <th><span jhiTranslate="brezaApp.onlineOrderItem.itemPrice">Item Price</span></th>
             <th><span jhiTranslate="brezaApp.onlineOrderItem.onlineOrder">Online Order</span></th>
             <th><span jhiTranslate="brezaApp.onlineOrderItem.article">Article</span></th>
             <th></th>
@@ -25,6 +26,7 @@
             <tr *ngFor="let onlineOrderItem of onlineOrderItems ;trackBy: trackId">
                 <td><a [routerLink]="['/online-order-item', onlineOrderItem.id, 'view' ]">{{onlineOrderItem.id}}</a></td>
                 <td>{{onlineOrderItem.orderedAmount}}</td>
+                <td>{{onlineOrderItem.itemPrice}}</td>
                 <td>
                     <div *ngIf="onlineOrderItem.onlineOrder">
                         <a [routerLink]="['../online-order', onlineOrderItem.onlineOrder?.id, 'view' ]" >{{onlineOrderItem.onlineOrder?.id}}</a>

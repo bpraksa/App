@@ -17,6 +17,7 @@
                 "title": "Online Order Item"
             },
             "orderedAmount": "Ordered Amount",
+            "itemPrice": "Item Price",
             "onlineOrder": "Online Order",
             "article": "Article"
         }
