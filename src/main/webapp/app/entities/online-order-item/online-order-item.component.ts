@@ -7,7 +7,7 @@ import { IOnlineOrderItem } from 'app/shared/model/online-order-item.model';
 import { Principal } from 'app/core';
 import { OnlineOrderItemService } from './online-order-item.service';
 import { LocalDataSource } from 'ng2-smart-table';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'jhi-online-order-item',
@@ -17,6 +17,8 @@ export class OnlineOrderItemComponent implements OnInit, OnDestroy {
     onlineOrderItems: IOnlineOrderItem[];
     currentAccount: any;
     eventSubscriber: Subscription;
+
+    onlineOrderId: number;
 
     settings = {
         mode: 'external',
@@ -67,10 +69,17 @@ export class OnlineOrderItemComponent implements OnInit, OnDestroy {
         private jhiAlertService: JhiAlertService,
         private eventManager: JhiEventManager,
         private principal: Principal,
-        private router: Router
+        private router: Router,
+        private route: ActivatedRoute
     ) {}
 
     loadAll() {
+        this.route.params.subscribe(params => {
+            this.onlineOrderId = params['id'];
+        });
+        // this.onlineOrderId treba proslediti kao parametar
+        // novom upitu za dobijanje svih stavki
+        // koje pripadaju OnlineOrderu sa tim id-jem
         this.onlineOrderItemService.query().subscribe(
             (res: HttpResponse<IOnlineOrderItem[]>) => {
                 this.onlineOrderItems = res.body;
