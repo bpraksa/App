@@ -7,6 +7,7 @@ import { IOnlineOrderItem } from 'app/shared/model/online-order-item.model';
 import { Principal } from 'app/core';
 import { OnlineOrderItemService } from './online-order-item.service';
 import { LocalDataSource } from 'ng2-smart-table';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'jhi-online-order-item',
@@ -20,7 +21,7 @@ export class OnlineOrderItemComponent implements OnInit, OnDestroy {
     settings = {
         mode: 'external',
         add: {
-            addButtonContent: 'Create a New Article'
+            addButtonContent: 'Create a New Online Order Item'
         },
         actions: {
             edit: false,
@@ -65,7 +66,8 @@ export class OnlineOrderItemComponent implements OnInit, OnDestroy {
         private onlineOrderItemService: OnlineOrderItemService,
         private jhiAlertService: JhiAlertService,
         private eventManager: JhiEventManager,
-        private principal: Principal
+        private principal: Principal,
+        private router: Router
     ) {}
 
     loadAll() {
@@ -106,5 +108,18 @@ export class OnlineOrderItemComponent implements OnInit, OnDestroy {
 
     private onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+    onCreate() {
+        this.router.navigate(['online-order-item/new']);
+    }
+
+    onCustom(event) {
+        if (event.action === 'view') {
+            this.router.navigate(['online-order-item/' + event.data.id + '/view']);
+        } else if (event.action === 'edit') {
+            this.router.navigate(['online-order-item/' + event.data.id + '/edit']);
+        } else if (event.action === 'delete') {
+            this.router.navigate([{ outlets: { popup: 'online-order-item/' + event.data.id + '/delete' } }]);
+        }
     }
 }
