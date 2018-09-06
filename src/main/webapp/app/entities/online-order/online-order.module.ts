@@ -13,11 +13,12 @@ import {
     TestButtonComponent
 } from './';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { BrezaOnlineOrderItemModule } from 'app/entities/online-order-item/online-order-item.module';
 
 const ENTITY_STATES = [...onlineOrderRoute, ...onlineOrderPopupRoute];
 
 @NgModule({
-    imports: [BrezaSharedModule, RouterModule.forChild(ENTITY_STATES), Ng2SmartTableModule],
+    imports: [BrezaSharedModule, RouterModule.forChild(ENTITY_STATES), Ng2SmartTableModule, BrezaOnlineOrderItemModule],
     declarations: [
         OnlineOrderComponent,
         OnlineOrderDetailComponent,

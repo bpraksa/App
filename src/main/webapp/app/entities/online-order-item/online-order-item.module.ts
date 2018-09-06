@@ -30,6 +30,7 @@ const ENTITY_STATES = [...onlineOrderItemRoute, ...onlineOrderItemPopupRoute];
         OnlineOrderItemDeleteDialogComponent,
         OnlineOrderItemDeletePopupComponent
     ],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    exports: [OnlineOrderItemComponent]
 })
 export class BrezaOnlineOrderItemModule {}
