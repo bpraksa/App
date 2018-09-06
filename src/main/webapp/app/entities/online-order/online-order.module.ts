@@ -9,7 +9,8 @@ import {
     OnlineOrderDeletePopupComponent,
     OnlineOrderDeleteDialogComponent,
     onlineOrderRoute,
-    onlineOrderPopupRoute
+    onlineOrderPopupRoute,
+    TestButtonComponent
 } from './';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 
@@ -22,7 +23,8 @@ const ENTITY_STATES = [...onlineOrderRoute, ...onlineOrderPopupRoute];
         OnlineOrderDetailComponent,
         OnlineOrderUpdateComponent,
         OnlineOrderDeleteDialogComponent,
-        OnlineOrderDeletePopupComponent
+        OnlineOrderDeletePopupComponent,
+        TestButtonComponent
     ],
     entryComponents: [OnlineOrderComponent, OnlineOrderUpdateComponent, OnlineOrderDeleteDialogComponent, OnlineOrderDeletePopupComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
