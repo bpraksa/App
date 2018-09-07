@@ -1,12 +1,13 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import { Subscription } from 'rxjs';
-import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
-
-import { IType } from 'app/shared/model/type.model';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Principal } from 'app/core';
-import { TypeService } from './type.service';
+import { IType } from 'app/shared/model/type.model';
+import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
 import { LocalDataSource } from 'ng2-smart-table';
+import { Subscription } from 'rxjs';
+
+import { TypeService } from './type.service';
 
 @Component({
     selector: 'jhi-type',
@@ -18,6 +19,28 @@ export class TypeComponent implements OnInit, OnDestroy {
     eventSubscriber: Subscription;
 
     settings = {
+        mode: 'external',
+        add: {
+            addButtonContent: 'Create New'
+        },
+        actions: {
+            edit: false,
+            delete: false,
+            custom: [
+                {
+                    name: 'view',
+                    title: 'View '
+                },
+                {
+                    name: 'edit',
+                    title: 'Edit '
+                },
+                {
+                    name: 'delete',
+                    title: 'Delete '
+                }
+            ]
+        },
         columns: {
             id: {
                 title: 'ID'
@@ -37,8 +60,17 @@ export class TypeComponent implements OnInit, OnDestroy {
         private typeService: TypeService,
         private jhiAlertService: JhiAlertService,
         private eventManager: JhiEventManager,
-        private principal: Principal
+        private principal: Principal,
+        private router: Router
     ) {}
+
+    ngOnInit() {
+        this.loadAll();
+        this.principal.identity().then(account => {
+            this.currentAccount = account;
+        });
+        this.registerChangeInTypes();
+    }
 
     loadAll() {
         this.typeService.query().subscribe(
@@ -50,27 +82,33 @@ export class TypeComponent implements OnInit, OnDestroy {
         );
     }
 
-    ngOnInit() {
-        this.loadAll();
-        this.principal.identity().then(account => {
-            this.currentAccount = account;
-        });
-        this.registerChangeInTypes();
-    }
-
-    ngOnDestroy() {
-        this.eventManager.destroy(this.eventSubscriber);
-    }
-
-    trackId(index: number, item: IType) {
-        return item.id;
-    }
-
     registerChangeInTypes() {
         this.eventSubscriber = this.eventManager.subscribe('typeListModification', response => this.loadAll());
     }
 
     private onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    trackId(index: number, item: IType) {
+        return item.id;
+    }
+
+    onCreate() {
+        this.router.navigate(['type/new']);
+    }
+
+    onCustom(event) {
+        if (event.action === 'view') {
+            this.router.navigate(['type/' + event.data.id + '/view']);
+        } else if (event.action === 'edit') {
+            this.router.navigate(['type/' + event.data.id + '/edit']);
+        } else if (event.action === 'delete') {
+            this.router.navigate([{ outlets: { popup: 'type/' + event.data.id + '/delete' } }]);
+        }
+    }
+
+    ngOnDestroy() {
+        this.eventManager.destroy(this.eventSubscriber);
     }
 }

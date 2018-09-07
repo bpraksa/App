@@ -1,16 +1,16 @@
-import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
+import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Routes } from '@angular/router';
 import { UserRouteAccessService } from 'app/core';
+import { IType, Type } from 'app/shared/model/type.model';
 import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Type } from 'app/shared/model/type.model';
-import { TypeService } from './type.service';
-import { TypeComponent } from './type.component';
+
+import { TypeDeletePopupComponent } from './type-delete-dialog.component';
 import { TypeDetailComponent } from './type-detail.component';
 import { TypeUpdateComponent } from './type-update.component';
-import { TypeDeletePopupComponent } from './type-delete-dialog.component';
-import { IType } from 'app/shared/model/type.model';
+import { TypeComponent } from './type.component';
+import { TypeService } from './type.service';
 
 @Injectable({ providedIn: 'root' })
 export class TypeResolve implements Resolve<IType> {
