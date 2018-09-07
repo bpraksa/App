@@ -1,15 +1,15 @@
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { JhiAlertService } from 'ng-jhipster';
-
-import { IOnlineOrder } from 'app/shared/model/online-order.model';
-import { OnlineOrderService } from './online-order.service';
-import { ICity } from 'app/shared/model/city.model';
 import { CityService } from 'app/entities/city';
-import { IClient } from 'app/shared/model/client.model';
 import { ClientService } from 'app/entities/client';
+import { ICity } from 'app/shared/model/city.model';
+import { IClient } from 'app/shared/model/client.model';
+import { IOnlineOrder } from 'app/shared/model/online-order.model';
+import { JhiAlertService } from 'ng-jhipster';
+import { Observable } from 'rxjs';
+
+import { OnlineOrderService } from './online-order.service';
 
 @Component({
     selector: 'jhi-online-order-update',
@@ -20,7 +20,6 @@ export class OnlineOrderUpdateComponent implements OnInit {
     isSaving: boolean;
 
     cities: ICity[];
-
     clients: IClient[];
 
     constructor(
@@ -87,6 +86,7 @@ export class OnlineOrderUpdateComponent implements OnInit {
     trackClientById(index: number, item: IClient) {
         return item.id;
     }
+
     get onlineOrder() {
         return this._onlineOrder;
     }

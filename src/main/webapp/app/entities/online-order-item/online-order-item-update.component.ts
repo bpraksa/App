@@ -1,15 +1,15 @@
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { JhiAlertService } from 'ng-jhipster';
 
-import { IOnlineOrderItem } from 'app/shared/model/online-order-item.model';
-import { OnlineOrderItemService } from './online-order-item.service';
-import { IOnlineOrder } from 'app/shared/model/online-order.model';
+import { ArticleService } from 'app/entities/article';
 import { OnlineOrderService } from 'app/entities/online-order';
 import { IArticle } from 'app/shared/model/article.model';
-import { ArticleService } from 'app/entities/article';
+import { IOnlineOrderItem } from 'app/shared/model/online-order-item.model';
+import { IOnlineOrder } from 'app/shared/model/online-order.model';
+import { JhiAlertService } from 'ng-jhipster';
+import { Observable } from 'rxjs';
+import { OnlineOrderItemService } from './online-order-item.service';
 
 @Component({
     selector: 'jhi-online-order-item-update',
@@ -20,7 +20,6 @@ export class OnlineOrderItemUpdateComponent implements OnInit {
     isSaving: boolean;
 
     onlineorders: IOnlineOrder[];
-
     articles: IArticle[];
 
     constructor(
@@ -87,6 +86,7 @@ export class OnlineOrderItemUpdateComponent implements OnInit {
     trackArticleById(index: number, item: IArticle) {
         return item.id;
     }
+
     get onlineOrderItem() {
         return this._onlineOrderItem;
     }

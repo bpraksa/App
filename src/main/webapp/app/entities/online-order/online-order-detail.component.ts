@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
 import { IOnlineOrder } from 'app/shared/model/online-order.model';
 
 @Component({

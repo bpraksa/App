@@ -1,16 +1,16 @@
-import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
+import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Routes } from '@angular/router';
 import { UserRouteAccessService } from 'app/core';
+import { IOnlineOrderItem, OnlineOrderItem } from 'app/shared/model/online-order-item.model';
 import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { OnlineOrderItem } from 'app/shared/model/online-order-item.model';
-import { OnlineOrderItemService } from './online-order-item.service';
-import { OnlineOrderItemComponent } from './online-order-item.component';
+
+import { OnlineOrderItemDeletePopupComponent } from './online-order-item-delete-dialog.component';
 import { OnlineOrderItemDetailComponent } from './online-order-item-detail.component';
 import { OnlineOrderItemUpdateComponent } from './online-order-item-update.component';
-import { OnlineOrderItemDeletePopupComponent } from './online-order-item-delete-dialog.component';
-import { IOnlineOrderItem } from 'app/shared/model/online-order-item.model';
+import { OnlineOrderItemComponent } from './online-order-item.component';
+import { OnlineOrderItemService } from './online-order-item.service';
 
 @Injectable({ providedIn: 'root' })
 export class OnlineOrderItemResolve implements Resolve<IOnlineOrderItem> {
