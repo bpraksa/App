@@ -1,12 +1,13 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import { Subscription } from 'rxjs';
-import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
-
-import { IClient } from 'app/shared/model/client.model';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Principal } from 'app/core';
-import { ClientService } from './client.service';
+import { IClient } from 'app/shared/model/client.model';
+import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
 import { LocalDataSource } from 'ng2-smart-table';
+import { Subscription } from 'rxjs';
+
+import { ClientService } from './client.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'jhi-client',
@@ -18,6 +19,28 @@ export class ClientComponent implements OnInit, OnDestroy {
     eventSubscriber: Subscription;
 
     settings = {
+        mode: 'external',
+        add: {
+            addButtonContent: 'Create New'
+        },
+        actions: {
+            edit: false,
+            delete: false,
+            custom: [
+                {
+                    name: 'view',
+                    title: 'View '
+                },
+                {
+                    name: 'edit',
+                    title: 'Edit '
+                },
+                {
+                    name: 'delete',
+                    title: 'Delete '
+                }
+            ]
+        },
         columns: {
             id: {
                 title: 'ID'
@@ -46,8 +69,17 @@ export class ClientComponent implements OnInit, OnDestroy {
         private clientService: ClientService,
         private jhiAlertService: JhiAlertService,
         private eventManager: JhiEventManager,
-        private principal: Principal
+        private principal: Principal,
+        private router: Router
     ) {}
+
+    ngOnInit() {
+        this.loadAll();
+        this.principal.identity().then(account => {
+            this.currentAccount = account;
+        });
+        this.registerChangeInClients();
+    }
 
     loadAll() {
         this.clientService.query().subscribe(
@@ -63,16 +95,18 @@ export class ClientComponent implements OnInit, OnDestroy {
         );
     }
 
-    ngOnInit() {
-        this.loadAll();
-        this.principal.identity().then(account => {
-            this.currentAccount = account;
-        });
-        this.registerChangeInClients();
+    onCreate() {
+        this.router.navigate(['client/new']);
     }
 
-    ngOnDestroy() {
-        this.eventManager.destroy(this.eventSubscriber);
+    onCustom(event) {
+        if (event.action === 'view') {
+            this.router.navigate(['client/' + event.data.id + '/view']);
+        } else if (event.action === 'edit') {
+            this.router.navigate(['client/' + event.data.id + '/edit']);
+        } else if (event.action === 'delete') {
+            this.router.navigate([{ outlets: { popup: 'client/' + event.data.id + '/delete' } }]);
+        }
     }
 
     trackId(index: number, item: IClient) {
@@ -85,5 +119,9 @@ export class ClientComponent implements OnInit, OnDestroy {
 
     private onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    ngOnDestroy() {
+        this.eventManager.destroy(this.eventSubscriber);
     }
 }

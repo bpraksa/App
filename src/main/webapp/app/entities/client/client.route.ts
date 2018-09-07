@@ -1,16 +1,16 @@
-import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
+import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Routes } from '@angular/router';
 import { UserRouteAccessService } from 'app/core';
+import { Client, IClient } from 'app/shared/model/client.model';
 import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Client } from 'app/shared/model/client.model';
-import { ClientService } from './client.service';
-import { ClientComponent } from './client.component';
+
+import { ClientDeletePopupComponent } from './client-delete-dialog.component';
 import { ClientDetailComponent } from './client-detail.component';
 import { ClientUpdateComponent } from './client-update.component';
-import { ClientDeletePopupComponent } from './client-delete-dialog.component';
-import { IClient } from 'app/shared/model/client.model';
+import { ClientComponent } from './client.component';
+import { ClientService } from './client.service';
 
 @Injectable({ providedIn: 'root' })
 export class ClientResolve implements Resolve<IClient> {
