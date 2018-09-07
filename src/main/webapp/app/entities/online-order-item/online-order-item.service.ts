@@ -1,10 +1,9 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
-
+import { Injectable } from '@angular/core';
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared';
 import { IOnlineOrderItem } from 'app/shared/model/online-order-item.model';
+import { Observable } from 'rxjs';
 
 type EntityResponseType = HttpResponse<IOnlineOrderItem>;
 type EntityArrayResponseType = HttpResponse<IOnlineOrderItem[]>;
@@ -25,6 +24,10 @@ export class OnlineOrderItemService {
 
     find(id: number): Observable<EntityResponseType> {
         return this.http.get<IOnlineOrderItem>(`${this.resourceUrl}/${id}`, { observe: 'response' });
+    }
+
+    findByOnlineOrderId(onlineOrderId: number): Observable<EntityArrayResponseType> {
+        return this.http.get<IOnlineOrderItem[]>(`${this.resourceUrl}/online-orders/${onlineOrderId}`, { observe: 'response' });
     }
 
     query(req?: any): Observable<EntityArrayResponseType> {

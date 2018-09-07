@@ -1,13 +1,13 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import { Subscription } from 'rxjs';
-import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import { IOnlineOrderItem } from 'app/shared/model/online-order-item.model';
 import { Principal } from 'app/core';
-import { OnlineOrderItemService } from './online-order-item.service';
+import { IOnlineOrderItem } from 'app/shared/model/online-order-item.model';
+import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
 import { LocalDataSource } from 'ng2-smart-table';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { OnlineOrderItemService } from './online-order-item.service';
 
 @Component({
     selector: 'jhi-online-order-item',
@@ -15,10 +15,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class OnlineOrderItemComponent implements OnInit, OnDestroy {
     onlineOrderItems: IOnlineOrderItem[];
+    onlineOrderId: number;
+
     currentAccount: any;
     eventSubscriber: Subscription;
-
-    onlineOrderId: number;
 
     settings = {
         mode: 'external',
@@ -73,14 +73,21 @@ export class OnlineOrderItemComponent implements OnInit, OnDestroy {
         private route: ActivatedRoute
     ) {}
 
+    ngOnInit() {
+        this.loadAll();
+        this.principal.identity().then(account => {
+            this.currentAccount = account;
+        });
+        this.registerChangeInOnlineOrderItems();
+    }
+
     loadAll() {
         this.route.params.subscribe(params => {
             this.onlineOrderId = params['id'];
         });
-        // this.onlineOrderId treba proslediti kao parametar
-        // novom upitu za dobijanje svih stavki
-        // koje pripadaju OnlineOrderu sa tim id-jem
-        this.onlineOrderItemService.query().subscribe(
+
+        // novi upit za samo one iteme koji nam trebaju
+        this.onlineOrderItemService.findByOnlineOrderId(this.onlineOrderId).subscribe(
             (res: HttpResponse<IOnlineOrderItem[]>) => {
                 this.onlineOrderItems = res.body;
                 this.data = new LocalDataSource();
@@ -95,18 +102,6 @@ export class OnlineOrderItemComponent implements OnInit, OnDestroy {
         );
     }
 
-    ngOnInit() {
-        this.loadAll();
-        this.principal.identity().then(account => {
-            this.currentAccount = account;
-        });
-        this.registerChangeInOnlineOrderItems();
-    }
-
-    ngOnDestroy() {
-        this.eventManager.destroy(this.eventSubscriber);
-    }
-
     trackId(index: number, item: IOnlineOrderItem) {
         return item.id;
     }
@@ -118,6 +113,7 @@ export class OnlineOrderItemComponent implements OnInit, OnDestroy {
     private onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
     }
+
     onCreate() {
         this.router.navigate(['online-order-item/new']);
     }
@@ -130,5 +126,9 @@ export class OnlineOrderItemComponent implements OnInit, OnDestroy {
         } else if (event.action === 'delete') {
             this.router.navigate([{ outlets: { popup: 'online-order-item/' + event.data.id + '/delete' } }]);
         }
+    }
+
+    ngOnDestroy() {
+        this.eventManager.destroy(this.eventSubscriber);
     }
 }

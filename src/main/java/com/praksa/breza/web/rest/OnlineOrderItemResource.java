@@ -90,6 +90,19 @@ public class OnlineOrderItemResource {
     }
 
     /**
+     * GET /online-order-items/online-orders/{onlineOrderId} : all the onlineOrderItems by onlineOrder id.
+     *
+     * @param id the id of the onlineOrder
+     * @return a list of OnlineOrderItems or an empty list
+     */
+    @GetMapping("/online-order-items/online-orders/{onlineOrderId}")
+    @Timed
+    public List<OnlineOrderItem> getOnlineOrderItemsByOnlineOrderId(@PathVariable Long onlineOrderId) {
+        log.debug("REST request to get OnlineOrderItems By OnlineOrder Id : {}", onlineOrderId);
+        return onlineOrderItemRepository.findByOnlineOrderId(onlineOrderId);
+    }
+
+    /**
      * GET  /online-order-items/:id : get the "id" onlineOrderItem.
      *
      * @param id the id of the onlineOrderItem to retrieve
@@ -117,4 +130,5 @@ public class OnlineOrderItemResource {
         onlineOrderItemRepository.deleteById(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+
 }
