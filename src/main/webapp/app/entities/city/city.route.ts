@@ -1,16 +1,16 @@
-import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
+import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Routes } from '@angular/router';
 import { UserRouteAccessService } from 'app/core';
+import { City, ICity } from 'app/shared/model/city.model';
 import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { City } from 'app/shared/model/city.model';
-import { CityService } from './city.service';
-import { CityComponent } from './city.component';
+
+import { CityDeletePopupComponent } from './city-delete-dialog.component';
 import { CityDetailComponent } from './city-detail.component';
 import { CityUpdateComponent } from './city-update.component';
-import { CityDeletePopupComponent } from './city-delete-dialog.component';
-import { ICity } from 'app/shared/model/city.model';
+import { CityComponent } from './city.component';
+import { CityService } from './city.service';
 
 @Injectable({ providedIn: 'root' })
 export class CityResolve implements Resolve<ICity> {

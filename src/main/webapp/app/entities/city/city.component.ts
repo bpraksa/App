@@ -1,12 +1,13 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import { Subscription } from 'rxjs';
-import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
-
-import { ICity } from 'app/shared/model/city.model';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Principal } from 'app/core';
-import { CityService } from './city.service';
+import { ICity } from 'app/shared/model/city.model';
+import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
 import { LocalDataSource } from 'ng2-smart-table';
+import { Subscription } from 'rxjs';
+
+import { CityService } from './city.service';
 
 @Component({
     selector: 'jhi-city',
@@ -18,6 +19,28 @@ export class CityComponent implements OnInit, OnDestroy {
     eventSubscriber: Subscription;
 
     settings = {
+        mode: 'external',
+        add: {
+            addButtonContent: 'Create New'
+        },
+        actions: {
+            edit: false,
+            delete: false,
+            custom: [
+                {
+                    name: 'view',
+                    title: 'View '
+                },
+                {
+                    name: 'edit',
+                    title: 'Edit '
+                },
+                {
+                    name: 'delete',
+                    title: 'Delete '
+                }
+            ]
+        },
         columns: {
             id: {
                 title: 'ID'
@@ -37,8 +60,17 @@ export class CityComponent implements OnInit, OnDestroy {
         private cityService: CityService,
         private jhiAlertService: JhiAlertService,
         private eventManager: JhiEventManager,
-        private principal: Principal
+        private principal: Principal,
+        private router: Router
     ) {}
+
+    ngOnInit() {
+        this.loadAll();
+        this.principal.identity().then(account => {
+            this.currentAccount = account;
+        });
+        this.registerChangeInCities();
+    }
 
     loadAll() {
         this.cityService.query().subscribe(
@@ -50,27 +82,33 @@ export class CityComponent implements OnInit, OnDestroy {
         );
     }
 
-    ngOnInit() {
-        this.loadAll();
-        this.principal.identity().then(account => {
-            this.currentAccount = account;
-        });
-        this.registerChangeInCities();
-    }
-
-    ngOnDestroy() {
-        this.eventManager.destroy(this.eventSubscriber);
+    registerChangeInCities() {
+        this.eventSubscriber = this.eventManager.subscribe('cityListModification', response => this.loadAll());
     }
 
     trackId(index: number, item: ICity) {
         return item.id;
     }
 
-    registerChangeInCities() {
-        this.eventSubscriber = this.eventManager.subscribe('cityListModification', response => this.loadAll());
-    }
-
     private onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    onCreate() {
+        this.router.navigate(['city/new']);
+    }
+
+    onCustom(event) {
+        if (event.action === 'view') {
+            this.router.navigate(['city/' + event.data.id + '/view']);
+        } else if (event.action === 'edit') {
+            this.router.navigate(['city/' + event.data.id + '/edit']);
+        } else if (event.action === 'delete') {
+            this.router.navigate([{ outlets: { popup: 'city/' + event.data.id + '/delete' } }]);
+        }
+    }
+
+    ngOnDestroy() {
+        this.eventManager.destroy(this.eventSubscriber);
     }
 }
