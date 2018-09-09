@@ -144,14 +144,16 @@ export class VehicleComponent implements OnInit, OnDestroy {
 
     private subscribeToSaveResponse(result: Observable<HttpResponse<IVehicle>>) {
         result.subscribe((res: HttpResponse<IVehicle>) => {
-            this.onSaveSuccess();
-        }, (err: HttpErrorResponse) => this.onSaveError());
+            this.onSaveSuccess(res.body);
+        }, (err: HttpErrorResponse) => this.onSaveError(err));
     }
 
-    private onSaveSuccess() {
+    private onSaveSuccess(item: IVehicle) {
+        console.log('test VehicleComponent onSaveSuccess() item:', item);
     }
 
-    private onSaveError() {
+    private onSaveError(err: HttpErrorResponse) {
+        console.log('test VehicleComponent onSaveError() ERROR:', err);
     }
 
     trackId(index: number, item: IVehicle) {
