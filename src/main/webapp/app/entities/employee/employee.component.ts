@@ -1,5 +1,6 @@
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Principal } from 'app/core';
 import { IEmployee } from 'app/shared/model/employee.model';
 import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
@@ -18,6 +19,28 @@ export class EmployeeComponent implements OnInit, OnDestroy {
     eventSubscriber: Subscription;
 
     settings = {
+        mode: 'external',
+        add: {
+            addButtonContent: 'Create New'
+        },
+        actions: {
+            edit: false,
+            delete: false,
+            custom: [
+                {
+                    name: 'view',
+                    title: 'View '
+                },
+                {
+                    name: 'edit',
+                    title: 'Edit '
+                },
+                {
+                    name: 'delete',
+                    title: 'Delete '
+                }
+            ]
+        },
         columns: {
             id: {
                 title: 'ID'
@@ -43,8 +66,17 @@ export class EmployeeComponent implements OnInit, OnDestroy {
         private employeeService: EmployeeService,
         private jhiAlertService: JhiAlertService,
         private eventManager: JhiEventManager,
-        private principal: Principal
+        private principal: Principal,
+        private router: Router
     ) {}
+
+    ngOnInit() {
+        this.loadAll();
+        this.principal.identity().then(account => {
+            this.currentAccount = account;
+        });
+        this.registerChangeInEmployees();
+    }
 
     loadAll() {
         this.employeeService.query().subscribe(
@@ -61,14 +93,6 @@ export class EmployeeComponent implements OnInit, OnDestroy {
         );
     }
 
-    ngOnInit() {
-        this.loadAll();
-        this.principal.identity().then(account => {
-            this.currentAccount = account;
-        });
-        this.registerChangeInEmployees();
-    }
-
     registerChangeInEmployees() {
         this.eventSubscriber = this.eventManager.subscribe('employeeListModification', response => this.loadAll());
     }
@@ -79,6 +103,20 @@ export class EmployeeComponent implements OnInit, OnDestroy {
 
     private onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    onCreate() {
+        this.router.navigate(['employee/new']);
+    }
+
+    onCustom(event) {
+        if (event.action === 'view') {
+            this.router.navigate(['employee/' + event.data.id + '/view']);
+        } else if (event.action === 'edit') {
+            this.router.navigate(['employee/' + event.data.id + '/edit']);
+        } else if (event.action === 'delete') {
+            this.router.navigate([{ outlets: { popup: 'employee/' + event.data.id + '/delete' } }]);
+        }
     }
 
     ngOnDestroy() {
