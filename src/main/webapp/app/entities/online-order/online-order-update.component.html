@@ -41,7 +41,7 @@
                     <label class="form-control-label" jhiTranslate="brezaApp.onlineOrder.city" for="field_city">City</label>
                     <select class="form-control" id="field_city" name="city" [(ngModel)]="onlineOrder.city"  required>
                         <option *ngIf="!editForm.value.city" [ngValue]="null" selected></option>
-                        <option [ngValue]="cityOption.id === onlineOrder.city?.id ? onlineOrder.city : cityOption" *ngFor="let cityOption of cities; trackBy: trackCityById">{{cityOption.name}}</option>
+                        <option [ngValue]="cityOption.id === onlineOrder.city?.id ? onlineOrder.city : cityOption" *ngFor="let cityOption of cities; trackBy: trackCityById">{{cityOption.name}} ({{cityOption.zipcode}})</option>
                     </select>
                 </div>
                 <div [hidden]="!(editForm.controls.city?.dirty && editForm.controls.city?.invalid)">
@@ -54,7 +54,7 @@
                     <label class="form-control-label" jhiTranslate="brezaApp.onlineOrder.client" for="field_client">Client</label>
                     <select class="form-control" id="field_client" name="client" [(ngModel)]="onlineOrder.client"  required>
                         <option *ngIf="!editForm.value.client" [ngValue]="null" selected></option>
-                        <option [ngValue]="clientOption.id === onlineOrder.client?.id ? onlineOrder.client : clientOption" *ngFor="let clientOption of clients; trackBy: trackClientById">{{clientOption.name}}</option>
+                        <option [ngValue]="clientOption.id === onlineOrder.client?.id ? onlineOrder.client : clientOption" *ngFor="let clientOption of clients; trackBy: trackClientById">{{clientOption.name}} ({{clientOption.city.name}})</option>
                     </select>
                 </div>
                 <div [hidden]="!(editForm.controls.client?.dirty && editForm.controls.client?.invalid)">

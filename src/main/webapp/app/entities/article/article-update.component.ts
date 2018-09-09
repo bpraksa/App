@@ -1,13 +1,13 @@
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { JhiAlertService } from 'ng-jhipster';
-
-import { IArticle } from 'app/shared/model/article.model';
-import { ArticleService } from './article.service';
-import { IType } from 'app/shared/model/type.model';
 import { TypeService } from 'app/entities/type';
+import { IArticle } from 'app/shared/model/article.model';
+import { IType } from 'app/shared/model/type.model';
+import { JhiAlertService } from 'ng-jhipster';
+import { Observable } from 'rxjs';
+
+import { ArticleService } from './article.service';
 
 @Component({
     selector: 'jhi-article-update',
@@ -31,6 +31,7 @@ export class ArticleUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ article }) => {
             this.article = article;
         });
+
         this.typeService.query().subscribe(
             (res: HttpResponse<IType[]>) => {
                 this.types = res.body;
@@ -72,6 +73,7 @@ export class ArticleUpdateComponent implements OnInit {
     trackTypeById(index: number, item: IType) {
         return item.id;
     }
+
     get article() {
         return this._article;
     }

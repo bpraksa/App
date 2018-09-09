@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
 import { IClient } from 'app/shared/model/client.model';
 
 @Component({

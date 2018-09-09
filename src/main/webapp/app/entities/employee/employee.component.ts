@@ -1,12 +1,12 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import { Subscription } from 'rxjs';
-import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
-
-import { IEmployee } from 'app/shared/model/employee.model';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Principal } from 'app/core';
-import { EmployeeService } from './employee.service';
+import { IEmployee } from 'app/shared/model/employee.model';
+import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
 import { LocalDataSource } from 'ng2-smart-table';
+import { Subscription } from 'rxjs';
+
+import { EmployeeService } from './employee.service';
 
 @Component({
     selector: 'jhi-employee',
@@ -69,19 +69,19 @@ export class EmployeeComponent implements OnInit, OnDestroy {
         this.registerChangeInEmployees();
     }
 
-    ngOnDestroy() {
-        this.eventManager.destroy(this.eventSubscriber);
+    registerChangeInEmployees() {
+        this.eventSubscriber = this.eventManager.subscribe('employeeListModification', response => this.loadAll());
     }
 
     trackId(index: number, item: IEmployee) {
         return item.id;
     }
 
-    registerChangeInEmployees() {
-        this.eventSubscriber = this.eventManager.subscribe('employeeListModification', response => this.loadAll());
-    }
-
     private onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    ngOnDestroy() {
+        this.eventManager.destroy(this.eventSubscriber);
     }
 }

@@ -7,8 +7,7 @@ export interface IClient {
     phoneNumber?: string;
     email?: string;
     city?: ICity;
-    // smart table column
-    clientCity?: string;
+    clientCity?: string; // smart table column
 }
 
 export class Client implements IClient {

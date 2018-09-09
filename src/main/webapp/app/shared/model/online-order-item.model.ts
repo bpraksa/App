@@ -1,5 +1,5 @@
-import { IOnlineOrder } from 'app/shared/model//online-order.model';
 import { IArticle } from 'app/shared/model//article.model';
+import { IOnlineOrder } from 'app/shared/model//online-order.model';
 
 export interface IOnlineOrderItem {
     id?: number;
@@ -7,9 +7,8 @@ export interface IOnlineOrderItem {
     itemPrice?: number;
     onlineOrder?: IOnlineOrder;
     article?: IArticle;
-    // smart table column
-    articleName?: string;
-    articlePrice?: number;
+    articleName?: string; // smart table column
+    articlePrice?: number; // smart table column
 }
 
 export class OnlineOrderItem implements IOnlineOrderItem {

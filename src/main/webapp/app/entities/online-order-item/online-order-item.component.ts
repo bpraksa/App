@@ -1,12 +1,12 @@
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-
 import { Principal } from 'app/core';
 import { IOnlineOrderItem } from 'app/shared/model/online-order-item.model';
 import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
 import { LocalDataSource } from 'ng2-smart-table';
 import { Subscription } from 'rxjs';
+
 import { OnlineOrderItemService } from './online-order-item.service';
 
 @Component({
@@ -102,12 +102,12 @@ export class OnlineOrderItemComponent implements OnInit, OnDestroy {
         );
     }
 
-    trackId(index: number, item: IOnlineOrderItem) {
-        return item.id;
-    }
-
     registerChangeInOnlineOrderItems() {
         this.eventSubscriber = this.eventManager.subscribe('onlineOrderItemListModification', response => this.loadAll());
+    }
+
+    trackId(index: number, item: IOnlineOrderItem) {
+        return item.id;
     }
 
     private onError(errorMessage: string) {

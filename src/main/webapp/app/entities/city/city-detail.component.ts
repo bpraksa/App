@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
 import { ICity } from 'app/shared/model/city.model';
 
 @Component({

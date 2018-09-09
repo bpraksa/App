@@ -8,9 +8,8 @@ export interface IOnlineOrder {
     totalPrice?: number;
     city?: ICity;
     client?: IClient;
-    // smart table column
-    cityName?: string;
-    clientName?: string;
+    cityName?: string; // smart table column
+    clientName?: string; // smart table column
 }
 
 export class OnlineOrder implements IOnlineOrder {

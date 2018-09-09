@@ -1,10 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-
 import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { IClient } from 'app/shared/model/client.model';
 import { JhiEventManager } from 'ng-jhipster';
 
-import { IClient } from 'app/shared/model/client.model';
 import { ClientService } from './client.service';
 
 @Component({

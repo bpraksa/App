@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
 import { IPosition } from 'app/shared/model/position.model';
 
 @Component({

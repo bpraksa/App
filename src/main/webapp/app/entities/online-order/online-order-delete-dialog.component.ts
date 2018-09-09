@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { IOnlineOrder } from 'app/shared/model/online-order.model';
 import { JhiEventManager } from 'ng-jhipster';
+
 import { OnlineOrderService } from './online-order.service';
 
 @Component({

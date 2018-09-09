@@ -1,13 +1,13 @@
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { JhiAlertService } from 'ng-jhipster';
-
-import { IClient } from 'app/shared/model/client.model';
-import { ClientService } from './client.service';
-import { ICity } from 'app/shared/model/city.model';
 import { CityService } from 'app/entities/city';
+import { ICity } from 'app/shared/model/city.model';
+import { IClient } from 'app/shared/model/client.model';
+import { JhiAlertService } from 'ng-jhipster';
+import { Observable } from 'rxjs';
+
+import { ClientService } from './client.service';
 
 @Component({
     selector: 'jhi-client-update',
@@ -72,6 +72,7 @@ export class ClientUpdateComponent implements OnInit {
     trackCityById(index: number, item: ICity) {
         return item.id;
     }
+
     get client() {
         return this._client;
     }

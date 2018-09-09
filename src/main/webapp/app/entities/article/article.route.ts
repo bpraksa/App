@@ -1,16 +1,16 @@
-import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
+import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Routes } from '@angular/router';
 import { UserRouteAccessService } from 'app/core';
+import { Article, IArticle } from 'app/shared/model/article.model';
 import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Article } from 'app/shared/model/article.model';
-import { ArticleService } from './article.service';
-import { ArticleComponent } from './article.component';
+
+import { ArticleDeletePopupComponent } from './article-delete-dialog.component';
 import { ArticleDetailComponent } from './article-detail.component';
 import { ArticleUpdateComponent } from './article-update.component';
-import { ArticleDeletePopupComponent } from './article-delete-dialog.component';
-import { IArticle } from 'app/shared/model/article.model';
+import { ArticleComponent } from './article.component';
+import { ArticleService } from './article.service';
 
 @Injectable({ providedIn: 'root' })
 export class ArticleResolve implements Resolve<IArticle> {

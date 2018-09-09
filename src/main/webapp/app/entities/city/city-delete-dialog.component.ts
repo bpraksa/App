@@ -1,10 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-
 import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { ICity } from 'app/shared/model/city.model';
 import { JhiEventManager } from 'ng-jhipster';
 
-import { ICity } from 'app/shared/model/city.model';
 import { CityService } from './city.service';
 
 @Component({

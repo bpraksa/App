@@ -5,9 +5,8 @@ export interface IEmployee {
     firstName?: string;
     lastName?: string;
     position?: IPosition;
-    // smart table column
-    fullName?: string;
-    employeePosition?: string;
+    fullName?: string; // smart table column
+    employeePosition?: string; // smart table column
 }
 
 export class Employee implements IEmployee {

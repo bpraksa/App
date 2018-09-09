@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-
 import { IOnlineOrderItem } from 'app/shared/model/online-order-item.model';
 import { JhiEventManager } from 'ng-jhipster';
+
 import { OnlineOrderItemService } from './online-order-item.service';
 
 @Component({

@@ -1,9 +1,9 @@
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { IPosition } from 'app/shared/model/position.model';
 import { Observable } from 'rxjs';
 
-import { IPosition } from 'app/shared/model/position.model';
 import { PositionService } from './position.service';
 
 @Component({
@@ -48,6 +48,7 @@ export class PositionUpdateComponent implements OnInit {
     private onSaveError() {
         this.isSaving = false;
     }
+
     get position() {
         return this._position;
     }

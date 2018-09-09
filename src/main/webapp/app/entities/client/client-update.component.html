@@ -52,7 +52,7 @@
                     <label class="form-control-label" jhiTranslate="brezaApp.client.city" for="field_city">City</label>
                     <select class="form-control" id="field_city" name="city" [(ngModel)]="client.city"  required>
                         <option *ngIf="!editForm.value.city" [ngValue]="null" selected></option>
-                        <option [ngValue]="cityOption.id === client.city?.id ? client.city : cityOption" *ngFor="let cityOption of cities; trackBy: trackCityById">{{cityOption.name}}</option>
+                        <option [ngValue]="cityOption.id === client.city?.id ? client.city : cityOption" *ngFor="let cityOption of cities; trackBy: trackCityById">{{cityOption.name}} ({{cityOption.zipcode}})</option>
                     </select>
                 </div>
                 <div [hidden]="!(editForm.controls.city?.dirty && editForm.controls.city?.invalid)">

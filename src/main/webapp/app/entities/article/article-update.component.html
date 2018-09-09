@@ -90,7 +90,7 @@
                     <label class="form-control-label" jhiTranslate="brezaApp.article.type" for="field_type">Type</label>
                     <select class="form-control" id="field_type" name="type" [(ngModel)]="article.type" >
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="typeOption.id === article.type?.id ? article.type : typeOption" *ngFor="let typeOption of types; trackBy: trackTypeById">{{typeOption.name}}</option>
+                        <option [ngValue]="typeOption.id === article.type?.id ? article.type : typeOption" *ngFor="let typeOption of types; trackBy: trackTypeById">{{typeOption.name}} ({{typeOption.description}})</option>
                     </select>
                 </div>
             </div>

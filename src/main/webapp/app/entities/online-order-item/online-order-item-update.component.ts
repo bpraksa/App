@@ -1,7 +1,6 @@
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
 import { ArticleService } from 'app/entities/article';
 import { OnlineOrderService } from 'app/entities/online-order';
 import { IArticle } from 'app/shared/model/article.model';
@@ -9,6 +8,7 @@ import { IOnlineOrderItem } from 'app/shared/model/online-order-item.model';
 import { IOnlineOrder } from 'app/shared/model/online-order.model';
 import { JhiAlertService } from 'ng-jhipster';
 import { Observable } from 'rxjs';
+
 import { OnlineOrderItemService } from './online-order-item.service';
 
 @Component({

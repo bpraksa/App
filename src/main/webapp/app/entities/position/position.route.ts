@@ -1,16 +1,16 @@
-import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
+import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Routes } from '@angular/router';
 import { UserRouteAccessService } from 'app/core';
+import { IPosition, Position } from 'app/shared/model/position.model';
 import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Position } from 'app/shared/model/position.model';
-import { PositionService } from './position.service';
-import { PositionComponent } from './position.component';
+
+import { PositionDeletePopupComponent } from './position-delete-dialog.component';
 import { PositionDetailComponent } from './position-detail.component';
 import { PositionUpdateComponent } from './position-update.component';
-import { PositionDeletePopupComponent } from './position-delete-dialog.component';
-import { IPosition } from 'app/shared/model/position.model';
+import { PositionComponent } from './position.component';
+import { PositionService } from './position.service';
 
 @Injectable({ providedIn: 'root' })
 export class PositionResolve implements Resolve<IPosition> {

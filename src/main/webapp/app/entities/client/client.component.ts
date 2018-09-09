@@ -1,5 +1,6 @@
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Principal } from 'app/core';
 import { IClient } from 'app/shared/model/client.model';
 import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
@@ -7,7 +8,6 @@ import { LocalDataSource } from 'ng2-smart-table';
 import { Subscription } from 'rxjs';
 
 import { ClientService } from './client.service';
-import { Router } from '@angular/router';
 
 @Component({
     selector: 'jhi-client',
@@ -95,6 +95,14 @@ export class ClientComponent implements OnInit, OnDestroy {
         );
     }
 
+    registerChangeInClients() {
+        this.eventSubscriber = this.eventManager.subscribe('clientListModification', response => this.loadAll());
+    }
+
+    private onError(errorMessage: string) {
+        this.jhiAlertService.error(errorMessage, null, null);
+    }
+
     onCreate() {
         this.router.navigate(['client/new']);
     }
@@ -111,14 +119,6 @@ export class ClientComponent implements OnInit, OnDestroy {
 
     trackId(index: number, item: IClient) {
         return item.id;
-    }
-
-    registerChangeInClients() {
-        this.eventSubscriber = this.eventManager.subscribe('clientListModification', response => this.loadAll());
-    }
-
-    private onError(errorMessage: string) {
-        this.jhiAlertService.error(errorMessage, null, null);
     }
 
     ngOnDestroy() {

@@ -1,13 +1,13 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import { Subscription } from 'rxjs';
-import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
-
-import { IArticle } from 'app/shared/model/article.model';
-import { Principal } from 'app/core';
-import { ArticleService } from './article.service';
-import { LocalDataSource } from 'ng2-smart-table';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Principal } from 'app/core';
+import { IArticle } from 'app/shared/model/article.model';
+import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
+import { LocalDataSource } from 'ng2-smart-table';
+import { Subscription } from 'rxjs';
+
+import { ArticleService } from './article.service';
 
 @Component({
     selector: 'jhi-article',
@@ -73,13 +73,20 @@ export class ArticleComponent implements OnInit, OnDestroy {
         private router: Router
     ) {}
 
+    ngOnInit() {
+        this.loadAll();
+        this.principal.identity().then(account => {
+            this.currentAccount = account;
+        });
+        this.registerChangeInArticles();
+    }
+
     loadAll() {
         this.articleService.query().subscribe(
             (res: HttpResponse<IArticle[]>) => {
                 this.articles = res.body;
                 this.data = new LocalDataSource();
                 for (const article of res.body) {
-                    // article.articleType = article.type.name;
                     // veza ka entitety Type nije obavezna
                     // u slucaju da je Type null, prikazujemo prazan string
                     article.articleType = article.type ? article.type.name : '';
@@ -90,24 +97,12 @@ export class ArticleComponent implements OnInit, OnDestroy {
         );
     }
 
-    ngOnInit() {
-        this.loadAll();
-        this.principal.identity().then(account => {
-            this.currentAccount = account;
-        });
-        this.registerChangeInArticles();
-    }
-
-    ngOnDestroy() {
-        this.eventManager.destroy(this.eventSubscriber);
+    registerChangeInArticles() {
+        this.eventSubscriber = this.eventManager.subscribe('articleListModification', response => this.loadAll());
     }
 
     trackId(index: number, item: IArticle) {
         return item.id;
-    }
-
-    registerChangeInArticles() {
-        this.eventSubscriber = this.eventManager.subscribe('articleListModification', response => this.loadAll());
     }
 
     private onError(errorMessage: string) {
@@ -126,5 +121,9 @@ export class ArticleComponent implements OnInit, OnDestroy {
         } else if (event.action === 'delete') {
             this.router.navigate([{ outlets: { popup: 'article/' + event.data.id + '/delete' } }]);
         }
+    }
+
+    ngOnDestroy() {
+        this.eventManager.destroy(this.eventSubscriber);
     }
 }

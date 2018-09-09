@@ -34,7 +34,7 @@
                     <label class="form-control-label" jhiTranslate="brezaApp.onlineOrderItem.onlineOrder" for="field_onlineOrder">Online Order</label>
                     <select class="form-control" id="field_onlineOrder" name="onlineOrder" [(ngModel)]="onlineOrderItem.onlineOrder"  required>
                         <option *ngIf="!editForm.value.onlineOrder" [ngValue]="null" selected></option>
-                        <option [ngValue]="onlineOrderOption.id === onlineOrderItem.onlineOrder?.id ? onlineOrderItem.onlineOrder : onlineOrderOption" *ngFor="let onlineOrderOption of onlineorders; trackBy: trackOnlineOrderById">{{onlineOrderOption.id}}</option>
+                        <option [ngValue]="onlineOrderOption.id === onlineOrderItem.onlineOrder?.id ? onlineOrderItem.onlineOrder : onlineOrderOption" *ngFor="let onlineOrderOption of onlineorders; trackBy: trackOnlineOrderById">{{onlineOrderOption.id}} - {{onlineOrderOption.client.name}}</option>
                     </select>
                 </div>
                 <div [hidden]="!(editForm.controls.onlineOrder?.dirty && editForm.controls.onlineOrder?.invalid)">
@@ -47,7 +47,7 @@
                     <label class="form-control-label" jhiTranslate="brezaApp.onlineOrderItem.article" for="field_article">Article</label>
                     <select class="form-control" id="field_article" name="article" [(ngModel)]="onlineOrderItem.article"  required>
                         <option *ngIf="!editForm.value.article" [ngValue]="null" selected></option>
-                        <option [ngValue]="articleOption.id === onlineOrderItem.article?.id ? onlineOrderItem.article : articleOption" *ngFor="let articleOption of articles; trackBy: trackArticleById">{{articleOption.name}}</option>
+                        <option [ngValue]="articleOption.id === onlineOrderItem.article?.id ? onlineOrderItem.article : articleOption" *ngFor="let articleOption of articles; trackBy: trackArticleById">{{articleOption.name}} ({{articleOption.price}})</option>
                     </select>
                 </div>
                 <div [hidden]="!(editForm.controls.article?.dirty && editForm.controls.article?.invalid)">

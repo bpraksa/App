@@ -1,13 +1,13 @@
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { JhiAlertService } from 'ng-jhipster';
-
-import { IEmployee } from 'app/shared/model/employee.model';
-import { EmployeeService } from './employee.service';
-import { IPosition } from 'app/shared/model/position.model';
 import { PositionService } from 'app/entities/position';
+import { IEmployee } from 'app/shared/model/employee.model';
+import { IPosition } from 'app/shared/model/position.model';
+import { JhiAlertService } from 'ng-jhipster';
+import { Observable } from 'rxjs';
+
+import { EmployeeService } from './employee.service';
 
 @Component({
     selector: 'jhi-employee-update',
@@ -72,6 +72,7 @@ export class EmployeeUpdateComponent implements OnInit {
     trackPositionById(index: number, item: IPosition) {
         return item.id;
     }
+
     get employee() {
         return this._employee;
     }

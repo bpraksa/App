@@ -1,9 +1,9 @@
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { IType } from 'app/shared/model/type.model';
 import { Observable } from 'rxjs';
 
-import { IType } from 'app/shared/model/type.model';
 import { TypeService } from './type.service';
 
 @Component({
@@ -48,6 +48,7 @@ export class TypeUpdateComponent implements OnInit {
     private onSaveError() {
         this.isSaving = false;
     }
+
     get type() {
         return this._type;
     }

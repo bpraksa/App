@@ -96,12 +96,12 @@ export class OnlineOrderComponent implements OnInit, OnDestroy {
         );
     }
 
-    trackId(index: number, item: IOnlineOrder) {
-        return item.id;
-    }
-
     registerChangeInOnlineOrders() {
         this.eventSubscriber = this.eventManager.subscribe('onlineOrderListModification', response => this.loadAll());
+    }
+
+    trackId(index: number, item: IOnlineOrder) {
+        return item.id;
     }
 
     private onError(errorMessage: string) {

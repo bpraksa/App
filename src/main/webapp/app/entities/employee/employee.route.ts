@@ -1,16 +1,16 @@
-import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
+import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Routes } from '@angular/router';
 import { UserRouteAccessService } from 'app/core';
+import { Employee, IEmployee } from 'app/shared/model/employee.model';
 import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Employee } from 'app/shared/model/employee.model';
-import { EmployeeService } from './employee.service';
-import { EmployeeComponent } from './employee.component';
+
+import { EmployeeDeletePopupComponent } from './employee-delete-dialog.component';
 import { EmployeeDetailComponent } from './employee-detail.component';
 import { EmployeeUpdateComponent } from './employee-update.component';
-import { EmployeeDeletePopupComponent } from './employee-delete-dialog.component';
-import { IEmployee } from 'app/shared/model/employee.model';
+import { EmployeeComponent } from './employee.component';
+import { EmployeeService } from './employee.service';
 
 @Injectable({ providedIn: 'root' })
 export class EmployeeResolve implements Resolve<IEmployee> {
