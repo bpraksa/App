@@ -1,9 +1,9 @@
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { IVehicle } from 'app/shared/model/vehicle.model';
 import { Observable } from 'rxjs';
 
-import { IVehicle } from 'app/shared/model/vehicle.model';
 import { VehicleService } from './vehicle.service';
 
 @Component({
@@ -48,6 +48,7 @@ export class VehicleUpdateComponent implements OnInit {
     private onSaveError() {
         this.isSaving = false;
     }
+
     get vehicle() {
         return this._vehicle;
     }

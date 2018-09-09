@@ -1,16 +1,16 @@
-import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
+import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Routes } from '@angular/router';
 import { UserRouteAccessService } from 'app/core';
+import { IVehicle, Vehicle } from 'app/shared/model/vehicle.model';
 import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Vehicle } from 'app/shared/model/vehicle.model';
-import { VehicleService } from './vehicle.service';
-import { VehicleComponent } from './vehicle.component';
+
+import { VehicleDeletePopupComponent } from './vehicle-delete-dialog.component';
 import { VehicleDetailComponent } from './vehicle-detail.component';
 import { VehicleUpdateComponent } from './vehicle-update.component';
-import { VehicleDeletePopupComponent } from './vehicle-delete-dialog.component';
-import { IVehicle } from 'app/shared/model/vehicle.model';
+import { VehicleComponent } from './vehicle.component';
+import { VehicleService } from './vehicle.service';
 
 @Injectable({ providedIn: 'root' })
 export class VehicleResolve implements Resolve<IVehicle> {

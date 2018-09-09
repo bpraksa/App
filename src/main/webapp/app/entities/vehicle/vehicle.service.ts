@@ -1,10 +1,9 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
-
+import { Injectable } from '@angular/core';
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared';
 import { IVehicle } from 'app/shared/model/vehicle.model';
+import { Observable } from 'rxjs';
 
 type EntityResponseType = HttpResponse<IVehicle>;
 type EntityArrayResponseType = HttpResponse<IVehicle[]>;

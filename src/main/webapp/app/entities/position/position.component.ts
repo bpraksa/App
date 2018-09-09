@@ -1,5 +1,6 @@
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Principal } from 'app/core';
 import { IPosition } from 'app/shared/model/position.model';
 import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
@@ -34,7 +35,8 @@ export class PositionComponent implements OnInit, OnDestroy {
         private positionService: PositionService,
         private jhiAlertService: JhiAlertService,
         private eventManager: JhiEventManager,
-        private principal: Principal
+        private principal: Principal,
+        private router: Router
     ) {}
 
     ngOnInit() {
@@ -65,6 +67,20 @@ export class PositionComponent implements OnInit, OnDestroy {
 
     private onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    onCreate() {
+        this.router.navigate(['position/new']);
+    }
+
+    onCustom(event) {
+        if (event.action === 'view') {
+            this.router.navigate(['position/' + event.data.id + '/view']);
+        } else if (event.action === 'edit') {
+            this.router.navigate(['position/' + event.data.id + '/edit']);
+        } else if (event.action === 'delete') {
+            this.router.navigate([{ outlets: { popup: 'position/' + event.data.id + '/delete' } }]);
+        }
     }
 
     ngOnDestroy() {
