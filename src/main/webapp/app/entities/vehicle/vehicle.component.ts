@@ -5,7 +5,7 @@ import { Principal } from 'app/core';
 import { IVehicle, Vehicle } from 'app/shared/model/vehicle.model';
 import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
 import { LocalDataSource } from 'ng2-smart-table';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 
 import { VehicleService } from './vehicle.service';
 
@@ -99,6 +99,7 @@ export class VehicleComponent implements OnInit, OnDestroy {
         if (!this.isInputValid(item)) {
             event.confirm.reject(); // cannot save and must click the cancel button
         } else {
+            this.save(item);
             event.confirm.resolve(item); // updates table and localDataSource
         }
     }
@@ -110,6 +111,7 @@ export class VehicleComponent implements OnInit, OnDestroy {
         if (!this.isInputValid(item)) {
             event.confirm.reject();
         } else {
+            this.save(item);
             event.confirm.resolve(item);
         }
     }
@@ -130,6 +132,26 @@ export class VehicleComponent implements OnInit, OnDestroy {
             }
         }
         return true;
+    }
+
+    save(item: Vehicle) {
+        if (item.id) {
+            this.subscribeToSaveResponse(this.vehicleService.update(item));
+        } else {
+            this.subscribeToSaveResponse(this.vehicleService.create(item));
+        }
+    }
+
+    private subscribeToSaveResponse(result: Observable<HttpResponse<IVehicle>>) {
+        result.subscribe((res: HttpResponse<IVehicle>) => {
+            this.onSaveSuccess();
+        }, (err: HttpErrorResponse) => this.onSaveError());
+    }
+
+    private onSaveSuccess() {
+    }
+
+    private onSaveError() {
     }
 
     trackId(index: number, item: IVehicle) {
