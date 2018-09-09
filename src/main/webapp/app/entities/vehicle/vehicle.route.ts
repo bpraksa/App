@@ -14,6 +14,7 @@ import { VehicleService } from './vehicle.service';
 
 @Injectable({ providedIn: 'root' })
 export class VehicleResolve implements Resolve<IVehicle> {
+
     constructor(private service: VehicleService) {}
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
@@ -23,6 +24,7 @@ export class VehicleResolve implements Resolve<IVehicle> {
         }
         return of(new Vehicle());
     }
+
 }
 
 export const vehicleRoute: Routes = [

@@ -11,9 +11,10 @@ import { VehicleService } from './vehicle.service';
     templateUrl: './vehicle-delete-dialog.component.html'
 })
 export class VehicleDeleteDialogComponent {
+
     vehicle: IVehicle;
 
-    constructor(private vehicleService: VehicleService, public activeModal: NgbActiveModal, private eventManager: JhiEventManager) {}
+    constructor(private vehicleService: VehicleService, public activeModal: NgbActiveModal, private eventManager: JhiEventManager) { }
 
     clear() {
         this.activeModal.dismiss('cancel');
@@ -28,6 +29,7 @@ export class VehicleDeleteDialogComponent {
             this.activeModal.dismiss(true);
         });
     }
+
 }
 
 @Component({
@@ -35,9 +37,10 @@ export class VehicleDeleteDialogComponent {
     template: ''
 })
 export class VehicleDeletePopupComponent implements OnInit, OnDestroy {
+
     private ngbModalRef: NgbModalRef;
 
-    constructor(private activatedRoute: ActivatedRoute, private router: Router, private modalService: NgbModal) {}
+    constructor(private activatedRoute: ActivatedRoute, private router: Router, private modalService: NgbModal) { }
 
     ngOnInit() {
         this.activatedRoute.data.subscribe(({ vehicle }) => {
@@ -61,4 +64,5 @@ export class VehicleDeletePopupComponent implements OnInit, OnDestroy {
     ngOnDestroy() {
         this.ngbModalRef = null;
     }
+
 }

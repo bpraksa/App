@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
 import { IVehicle } from 'app/shared/model/vehicle.model';
 
 @Component({
@@ -8,9 +7,10 @@ import { IVehicle } from 'app/shared/model/vehicle.model';
     templateUrl: './vehicle-detail.component.html'
 })
 export class VehicleDetailComponent implements OnInit {
+
     vehicle: IVehicle;
 
-    constructor(private activatedRoute: ActivatedRoute) {}
+    constructor(private activatedRoute: ActivatedRoute) { }
 
     ngOnInit() {
         this.activatedRoute.data.subscribe(({ vehicle }) => {
@@ -21,4 +21,5 @@ export class VehicleDetailComponent implements OnInit {
     previousState() {
         window.history.back();
     }
+
 }

@@ -11,10 +11,14 @@ import { VehicleService } from './vehicle.service';
     templateUrl: './vehicle-update.component.html'
 })
 export class VehicleUpdateComponent implements OnInit {
+
     private _vehicle: IVehicle;
     isSaving: boolean;
 
-    constructor(private vehicleService: VehicleService, private activatedRoute: ActivatedRoute) {}
+    constructor(
+        private vehicleService: VehicleService,
+        private activatedRoute: ActivatedRoute
+    ) { }
 
     ngOnInit() {
         this.isSaving = false;
@@ -56,4 +60,5 @@ export class VehicleUpdateComponent implements OnInit {
     set vehicle(vehicle: IVehicle) {
         this._vehicle = vehicle;
     }
+
 }

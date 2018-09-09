@@ -10,9 +10,10 @@ type EntityArrayResponseType = HttpResponse<IVehicle[]>;
 
 @Injectable({ providedIn: 'root' })
 export class VehicleService {
+
     private resourceUrl = SERVER_API_URL + 'api/vehicles';
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) { }
 
     create(vehicle: IVehicle): Observable<EntityResponseType> {
         return this.http.post<IVehicle>(this.resourceUrl, vehicle, { observe: 'response' });
@@ -34,4 +35,5 @@ export class VehicleService {
     delete(id: number): Observable<HttpResponse<any>> {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
+
 }
