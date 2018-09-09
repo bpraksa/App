@@ -6,6 +6,7 @@
     <br/>
     <ng2-smart-table
         [settings]="settings"
-        [source]="data">
+        [source]="data"
+        (custom)="onCustom($event)">
     </ng2-smart-table>
 </div>
