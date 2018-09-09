@@ -19,6 +19,8 @@ export class VehicleComponent implements OnInit, OnDestroy {
         mode: 'inline',
         actions: {
             columnTitle: '',
+            add: true,
+            edit: true,
             delete: false,
             custom: [
                 {
@@ -30,6 +32,12 @@ export class VehicleComponent implements OnInit, OnDestroy {
                     title: 'Delete ',
                 }
             ]
+        },
+        add: {
+            confirmCreate: true, // triggers createConfirm event
+        },
+        edit: {
+            confirmSave: true, // triggers editConfirm event
         },
         columns: {
             id: {
@@ -82,6 +90,14 @@ export class VehicleComponent implements OnInit, OnDestroy {
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
+    }
+
+    onAdd(event) {
+        console.log('test VehicleComponent onAdd() event:', event);
+    }
+
+    onEdit(event) {
+        console.log('test VehicleComponent onEdit() event:', event);
     }
 
     trackId(index: number, item: IVehicle) {
