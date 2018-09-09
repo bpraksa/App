@@ -114,7 +114,21 @@ export class VehicleComponent implements OnInit, OnDestroy {
         }
     }
 
-    isInputValid(item: Vehicle): boolean {
+    isInputValid(item): boolean {
+        console.log('test VehicleComponent isInputValid() vehicle:', item);
+
+        if (!item.vehicleNumber || !item.brand || !item.model) {
+            return false;
+        } else if (item.brand.charAt(0) !== item.brand.charAt(0).toUpperCase()) {
+            return false;
+        } else if (item.model.charAt(0) !== item.model.charAt(0).toUpperCase()) {
+            return false;
+        }
+        for (let i = item.vehicleNumber.length - 1; i > item.vehicleNumber.length - 4; i--) {
+            if (isNaN(item.vehicleNumber.charAt(i))) {
+                return false;
+            }
+        }
         return true;
     }
 

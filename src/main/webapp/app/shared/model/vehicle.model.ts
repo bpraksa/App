@@ -6,5 +6,12 @@ export interface IVehicle {
 }
 
 export class Vehicle implements IVehicle {
-    constructor(public id?: number, public vehicleNumber?: string, public brand?: string, public model?: string) {}
+
+    constructor(
+        public id?: number,
+        public vehicleNumber?: string,
+        public brand?: string,
+        public model?: string
+    ) { }
+
 }
