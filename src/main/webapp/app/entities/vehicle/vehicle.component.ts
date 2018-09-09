@@ -18,6 +18,7 @@ export class VehicleComponent implements OnInit, OnDestroy {
     settings = {
         mode: 'inline',
         actions: {
+            columnTitle: '',
             delete: false,
             custom: [
                 {
@@ -32,7 +33,9 @@ export class VehicleComponent implements OnInit, OnDestroy {
         },
         columns: {
             id: {
-                title: 'ID'
+                title: 'ID',
+                addable: false,
+                editable: false
             },
             vehicleNumber: {
                 title: 'Vehicle Number'
@@ -43,6 +46,9 @@ export class VehicleComponent implements OnInit, OnDestroy {
             model: {
                 title: 'Model'
             }
+        },
+        attr: {
+            class: 'table table-hover table-bordered text-nowrap'
         }
     };
 
