@@ -31,10 +31,10 @@
                         </small>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group" *ngIf="!isNewForm">
                     <label class="form-control-label" jhiTranslate="brezaApp.onlineOrder.totalPrice" for="field_totalPrice">Total Price</label>
                     <input type="number" class="form-control" name="totalPrice" id="field_totalPrice"
-                        [(ngModel)]="onlineOrder.totalPrice" />
+                        [(ngModel)]="onlineOrder.totalPrice" readonly />
                 </div>
 
                 <div class="form-group">

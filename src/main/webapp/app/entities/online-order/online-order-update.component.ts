@@ -1,6 +1,6 @@
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CityService } from 'app/entities/city';
 import { ClientService } from 'app/entities/client';
 import { ICity } from 'app/shared/model/city.model';
@@ -19,6 +19,7 @@ export class OnlineOrderUpdateComponent implements OnInit {
 
     private _onlineOrder: IOnlineOrder;
     isSaving: boolean;
+    isNewForm: boolean;
 
     cities: ICity[];
     clients: IClient[];
@@ -28,7 +29,8 @@ export class OnlineOrderUpdateComponent implements OnInit {
         private onlineOrderService: OnlineOrderService,
         private cityService: CityService,
         private clientService: ClientService,
-        private activatedRoute: ActivatedRoute
+        private activatedRoute: ActivatedRoute,
+        private router: Router
     ) { }
 
     ngOnInit() {
@@ -36,6 +38,9 @@ export class OnlineOrderUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ onlineOrder }) => {
             this.onlineOrder = onlineOrder;
         });
+        console.log('test OnlineOrderUpdate ngOnInit() this.router.url:', this.router.url);
+        this.isNewForm = this.router.url.includes('new');
+
         this.cityService.query().subscribe(
             (res: HttpResponse<ICity[]>) => {
                 this.cities = res.body;
