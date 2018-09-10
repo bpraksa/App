@@ -11,6 +11,7 @@ export interface IArticle {
 }
 
 export class Article implements IArticle {
+
     constructor(
         public id?: number,
         public name?: string,
@@ -18,5 +19,6 @@ export class Article implements IArticle {
         public price?: number,
         public availableAmount?: number,
         public type?: IType
-    ) {}
+    ) { }
+
 }

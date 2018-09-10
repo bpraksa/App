@@ -12,11 +12,13 @@ export interface IOnlineOrderItem {
 }
 
 export class OnlineOrderItem implements IOnlineOrderItem {
+
     constructor(
         public id?: number,
         public orderedAmount?: number,
         public itemPrice?: number,
         public onlineOrder?: IOnlineOrder,
         public article?: IArticle
-    ) {}
+    ) { }
+
 }
