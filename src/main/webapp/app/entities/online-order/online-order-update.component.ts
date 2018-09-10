@@ -6,8 +6,8 @@ import { ClientService } from 'app/entities/client';
 import { ICity } from 'app/shared/model/city.model';
 import { IClient } from 'app/shared/model/client.model';
 import { IOnlineOrder } from 'app/shared/model/online-order.model';
-import { JhiAlertService } from 'ng-jhipster';
-import { Observable } from 'rxjs';
+import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
+import { Observable, Subscription } from 'rxjs';
 
 import { OnlineOrderService } from './online-order.service';
 
@@ -23,6 +23,7 @@ export class OnlineOrderUpdateComponent implements OnInit {
 
     cities: ICity[];
     clients: IClient[];
+    eventSubscriber: Subscription;
 
     constructor(
         private jhiAlertService: JhiAlertService,
@@ -30,7 +31,8 @@ export class OnlineOrderUpdateComponent implements OnInit {
         private cityService: CityService,
         private clientService: ClientService,
         private activatedRoute: ActivatedRoute,
-        private router: Router
+        private router: Router,
+        private eventManager: JhiEventManager
     ) { }
 
     ngOnInit() {
@@ -40,6 +42,12 @@ export class OnlineOrderUpdateComponent implements OnInit {
         });
         console.log('test OnlineOrderUpdate ngOnInit() this.router.url:', this.router.url);
         this.isNewForm = this.router.url.includes('new');
+
+        this.eventSubscriber = this.eventManager
+            .subscribe('onlineOrderItemChange', response => {
+                console.log('test OnlineOrderUpdate ngOnInit() response:', response);
+                this.save();
+            });
 
         this.cityService.query().subscribe(
             (res: HttpResponse<ICity[]>) => {
