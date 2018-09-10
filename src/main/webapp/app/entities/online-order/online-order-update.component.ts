@@ -5,7 +5,7 @@ import { CityService } from 'app/entities/city';
 import { ClientService } from 'app/entities/client';
 import { ICity } from 'app/shared/model/city.model';
 import { IClient } from 'app/shared/model/client.model';
-import { IOnlineOrder } from 'app/shared/model/online-order.model';
+import { IOnlineOrder, OnlineOrder } from 'app/shared/model/online-order.model';
 import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
 import { Observable, Subscription } from 'rxjs';
 
@@ -77,15 +77,19 @@ export class OnlineOrderUpdateComponent implements OnInit {
     }
 
     private subscribeToSaveResponse(result: Observable<HttpResponse<IOnlineOrder>>) {
-        result.subscribe((res: HttpResponse<IOnlineOrder>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
+        result.subscribe((res: HttpResponse<IOnlineOrder>) => {
+            this.onSaveSuccess(res.body);
+        }, (err: HttpErrorResponse) => this.onSaveError(err));
     }
 
-    private onSaveSuccess() {
+    private onSaveSuccess(item: OnlineOrder) {
+        console.log('test OnlineOrderUpdate onSaveSuccess() item:', item);
         this.isSaving = false;
-        this.previousState();
+        // this.previousState();
     }
 
-    private onSaveError() {
+    private onSaveError(err: HttpErrorResponse) {
+        console.log('test OnlineOrderUpdate onSaveError() ERROR:', err);
         this.isSaving = false;
     }
 

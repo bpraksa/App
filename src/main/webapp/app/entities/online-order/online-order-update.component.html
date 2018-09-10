@@ -1,6 +1,6 @@
 <div class="row justify-content-center">
     <div class="col-8">
-        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save(); previousState()" #editForm="ngForm">
             <h2 id="jhi-online-order-heading" jhiTranslate="brezaApp.onlineOrder.home.createOrEditLabel">Create or edit a Online Order</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
