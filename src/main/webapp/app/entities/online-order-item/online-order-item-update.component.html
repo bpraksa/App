@@ -11,7 +11,7 @@
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="brezaApp.onlineOrderItem.orderedAmount" for="field_orderedAmount">Ordered Amount</label>
-                    <input type="number" class="form-control" name="orderedAmount" id="field_orderedAmount"
+                    <input type="number" class="form-control" name="orderedAmount" id="field_orderedAmount" (change)="calculatePrice()"
                         [(ngModel)]="onlineOrderItem.orderedAmount" required/>
                     <div [hidden]="!(editForm.controls.orderedAmount?.dirty && editForm.controls.orderedAmount?.invalid)">
                         <small class="form-text text-danger"
@@ -45,7 +45,7 @@
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="brezaApp.onlineOrderItem.article" for="field_article">Article</label>
-                    <select class="form-control" id="field_article" name="article" [(ngModel)]="onlineOrderItem.article"  required>
+                    <select class="form-control" id="field_article" name="article" [(ngModel)]="onlineOrderItem.article" (change)="calculatePrice()" required>
                         <option *ngIf="!editForm.value.article" [ngValue]="null" selected></option>
                         <option [ngValue]="articleOption.id === onlineOrderItem.article?.id ? onlineOrderItem.article : articleOption" *ngFor="let articleOption of articles; trackBy: trackArticleById">{{articleOption.name}} ({{articleOption.price}})</option>
                     </select>

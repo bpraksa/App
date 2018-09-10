@@ -50,6 +50,10 @@ export class OnlineOrderItemUpdateComponent implements OnInit {
         );
     }
 
+    calculatePrice() {
+        console.log('test OnlineOrderItem calculatePrice()');
+    }
+
     previousState() {
         window.history.back();
     }
