@@ -119,13 +119,22 @@ export class OnlineOrderItemComponent implements OnInit, OnDestroy {
     }
 
     onCreate() {
+        console.log('test OnlineOrderItem onCreate() broadcast');
+        this.eventManager.broadcast({ name: 'onlineOrderItemChange', content: 'On create item' });
+
         this.router.navigate(['online-order-item/new']);
     }
 
     onCustom(event) {
         if (event.action === 'view') {
+            console.log('test OnlineOrderItem onCustom() view broadcast');
+            this.eventManager.broadcast({ name: 'onlineOrderItemChange', content: 'On view item' }); // broadcast da je doslo do promene OnlineOrderItem-a
+
             this.router.navigate(['online-order-item/' + event.data.id + '/view']);
         } else if (event.action === 'edit') {
+            console.log('test OnlineOrderItem onCustom() edit broadcast');
+            this.eventManager.broadcast({ name: 'onlineOrderItemChange', content: 'On edit item' });
+
             this.router.navigate(['online-order-item/' + event.data.id + '/edit']);
         } else if (event.action === 'delete') {
             this.router.navigate([{ outlets: { popup: 'online-order-item/' + event.data.id + '/delete' } }]);
