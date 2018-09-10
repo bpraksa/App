@@ -5,8 +5,10 @@
             "fieldName": "orderedAmount",
             "fieldType": "Long",
             "fieldValidateRules": [
-                "required"
-            ]
+                "required",
+                "min"
+            ],
+            "fieldValidateRulesMin": "1"
         },
         {
             "fieldName": "itemPrice",

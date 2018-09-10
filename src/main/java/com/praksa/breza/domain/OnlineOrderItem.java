@@ -22,6 +22,7 @@ public class OnlineOrderItem implements Serializable {
     private Long id;
 
     @NotNull
+    @Min(value = 1L)
     @Column(name = "ordered_amount", nullable = false)
     private Long orderedAmount;
 
