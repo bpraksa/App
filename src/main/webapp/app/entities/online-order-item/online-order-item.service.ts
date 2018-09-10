@@ -10,9 +10,10 @@ type EntityArrayResponseType = HttpResponse<IOnlineOrderItem[]>;
 
 @Injectable({ providedIn: 'root' })
 export class OnlineOrderItemService {
+
     private resourceUrl = SERVER_API_URL + 'api/online-order-items';
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) { }
 
     create(onlineOrderItem: IOnlineOrderItem): Observable<EntityResponseType> {
         return this.http.post<IOnlineOrderItem>(this.resourceUrl, onlineOrderItem, { observe: 'response' });
@@ -38,4 +39,5 @@ export class OnlineOrderItemService {
     delete(id: number): Observable<HttpResponse<any>> {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
+
 }

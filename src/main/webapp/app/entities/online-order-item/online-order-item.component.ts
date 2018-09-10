@@ -14,6 +14,7 @@ import { OnlineOrderItemService } from './online-order-item.service';
     templateUrl: './online-order-item.component.html'
 })
 export class OnlineOrderItemComponent implements OnInit, OnDestroy {
+
     onlineOrderItems: IOnlineOrderItem[];
     onlineOrderId: number;
 
@@ -71,7 +72,7 @@ export class OnlineOrderItemComponent implements OnInit, OnDestroy {
         private principal: Principal,
         private router: Router,
         private route: ActivatedRoute
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.loadAll();
@@ -103,7 +104,10 @@ export class OnlineOrderItemComponent implements OnInit, OnDestroy {
     }
 
     registerChangeInOnlineOrderItems() {
-        this.eventSubscriber = this.eventManager.subscribe('onlineOrderItemListModification', response => this.loadAll());
+        this.eventSubscriber = this.eventManager
+            .subscribe('onlineOrderItemListModification', response => {
+                this.loadAll();
+            });
     }
 
     trackId(index: number, item: IOnlineOrderItem) {
@@ -131,4 +135,5 @@ export class OnlineOrderItemComponent implements OnInit, OnDestroy {
     ngOnDestroy() {
         this.eventManager.destroy(this.eventSubscriber);
     }
+
 }

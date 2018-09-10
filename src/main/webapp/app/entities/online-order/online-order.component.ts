@@ -14,6 +14,7 @@ import { OnlineOrderService } from './online-order.service';
     templateUrl: './online-order.component.html'
 })
 export class OnlineOrderComponent implements OnInit, OnDestroy {
+
     onlineOrders: IOnlineOrder[];
     currentAccount: any;
     eventSubscriber: Subscription;
@@ -71,7 +72,7 @@ export class OnlineOrderComponent implements OnInit, OnDestroy {
         private eventManager: JhiEventManager,
         private principal: Principal,
         private router: Router
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.loadAll();
@@ -125,4 +126,5 @@ export class OnlineOrderComponent implements OnInit, OnDestroy {
     ngOnDestroy() {
         this.eventManager.destroy(this.eventSubscriber);
     }
+
 }

@@ -16,6 +16,7 @@ import { OnlineOrderItemService } from './online-order-item.service';
     templateUrl: './online-order-item-update.component.html'
 })
 export class OnlineOrderItemUpdateComponent implements OnInit {
+
     private _onlineOrderItem: IOnlineOrderItem;
     isSaving: boolean;
 
@@ -28,7 +29,7 @@ export class OnlineOrderItemUpdateComponent implements OnInit {
         private onlineOrderService: OnlineOrderService,
         private articleService: ArticleService,
         private activatedRoute: ActivatedRoute
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.isSaving = false;
@@ -63,7 +64,9 @@ export class OnlineOrderItemUpdateComponent implements OnInit {
     }
 
     private subscribeToSaveResponse(result: Observable<HttpResponse<IOnlineOrderItem>>) {
-        result.subscribe((res: HttpResponse<IOnlineOrderItem>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
+        result.subscribe((res: HttpResponse<IOnlineOrderItem>) => {
+            this.onSaveSuccess();
+        }, (res: HttpErrorResponse) => this.onSaveError());
     }
 
     private onSaveSuccess() {
@@ -94,4 +97,5 @@ export class OnlineOrderItemUpdateComponent implements OnInit {
     set onlineOrderItem(onlineOrderItem: IOnlineOrderItem) {
         this._onlineOrderItem = onlineOrderItem;
     }
+
 }

@@ -7,9 +7,10 @@ import { IOnlineOrder } from 'app/shared/model/online-order.model';
     templateUrl: './online-order-detail.component.html'
 })
 export class OnlineOrderDetailComponent implements OnInit {
+
     onlineOrder: IOnlineOrder;
 
-    constructor(private activatedRoute: ActivatedRoute) {}
+    constructor(private activatedRoute: ActivatedRoute) { }
 
     ngOnInit() {
         this.activatedRoute.data.subscribe(({ onlineOrder }) => {
@@ -20,4 +21,5 @@ export class OnlineOrderDetailComponent implements OnInit {
     previousState() {
         window.history.back();
     }
+
 }

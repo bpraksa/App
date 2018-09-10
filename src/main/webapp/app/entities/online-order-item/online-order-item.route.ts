@@ -14,7 +14,8 @@ import { OnlineOrderItemService } from './online-order-item.service';
 
 @Injectable({ providedIn: 'root' })
 export class OnlineOrderItemResolve implements Resolve<IOnlineOrderItem> {
-    constructor(private service: OnlineOrderItemService) {}
+
+    constructor(private service: OnlineOrderItemService) { }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         const id = route.params['id'] ? route.params['id'] : null;
@@ -23,6 +24,7 @@ export class OnlineOrderItemResolve implements Resolve<IOnlineOrderItem> {
         }
         return of(new OnlineOrderItem());
     }
+
 }
 
 export const onlineOrderItemRoute: Routes = [

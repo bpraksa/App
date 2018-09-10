@@ -16,6 +16,7 @@ import { OnlineOrderService } from './online-order.service';
     templateUrl: './online-order-update.component.html'
 })
 export class OnlineOrderUpdateComponent implements OnInit {
+
     private _onlineOrder: IOnlineOrder;
     isSaving: boolean;
 
@@ -28,7 +29,7 @@ export class OnlineOrderUpdateComponent implements OnInit {
         private cityService: CityService,
         private clientService: ClientService,
         private activatedRoute: ActivatedRoute
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.isSaving = false;
@@ -94,4 +95,5 @@ export class OnlineOrderUpdateComponent implements OnInit {
     set onlineOrder(onlineOrder: IOnlineOrder) {
         this._onlineOrder = onlineOrder;
     }
+
 }

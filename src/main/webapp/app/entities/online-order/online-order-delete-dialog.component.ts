@@ -11,13 +11,14 @@ import { OnlineOrderService } from './online-order.service';
     templateUrl: './online-order-delete-dialog.component.html'
 })
 export class OnlineOrderDeleteDialogComponent {
+
     onlineOrder: IOnlineOrder;
 
     constructor(
         private onlineOrderService: OnlineOrderService,
         public activeModal: NgbActiveModal,
         private eventManager: JhiEventManager
-    ) {}
+    ) { }
 
     clear() {
         this.activeModal.dismiss('cancel');
@@ -32,6 +33,7 @@ export class OnlineOrderDeleteDialogComponent {
             this.activeModal.dismiss(true);
         });
     }
+
 }
 
 @Component({
@@ -39,9 +41,10 @@ export class OnlineOrderDeleteDialogComponent {
     template: ''
 })
 export class OnlineOrderDeletePopupComponent implements OnInit, OnDestroy {
+
     private ngbModalRef: NgbModalRef;
 
-    constructor(private activatedRoute: ActivatedRoute, private router: Router, private modalService: NgbModal) {}
+    constructor(private activatedRoute: ActivatedRoute, private router: Router, private modalService: NgbModal) { }
 
     ngOnInit() {
         this.activatedRoute.data.subscribe(({ onlineOrder }) => {
@@ -68,4 +71,5 @@ export class OnlineOrderDeletePopupComponent implements OnInit, OnDestroy {
     ngOnDestroy() {
         this.ngbModalRef = null;
     }
+
 }
