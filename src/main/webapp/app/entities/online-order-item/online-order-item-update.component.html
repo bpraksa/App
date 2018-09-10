@@ -30,7 +30,7 @@
                         [(ngModel)]="onlineOrderItem.itemPrice" readonly />
                 </div>
 
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label class="form-control-label" jhiTranslate="brezaApp.onlineOrderItem.onlineOrder" for="field_onlineOrder">Online Order</label>
                     <select class="form-control" id="field_onlineOrder" name="onlineOrder" [(ngModel)]="onlineOrderItem.onlineOrder"  required>
                         <option *ngIf="!editForm.value.onlineOrder" [ngValue]="null" selected></option>
@@ -42,7 +42,7 @@
                         [hidden]="!editForm.controls.onlineOrder?.errors?.required" jhiTranslate="entity.validation.required">
                         This field is required.
                     </small>
-                </div>
+                </div> -->
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="brezaApp.onlineOrderItem.article" for="field_article">Article</label>
                     <select class="form-control" id="field_article" name="article" [(ngModel)]="onlineOrderItem.article" (change)="calculatePrice()" required>
