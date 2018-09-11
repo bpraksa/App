@@ -15,12 +15,6 @@ import { OnlineOrderItemService } from './online-order-item.service';
 })
 export class OnlineOrderItemComponent implements OnInit, OnDestroy {
 
-    onlineOrderItems: IOnlineOrderItem[];
-    onlineOrderId: number;
-
-    currentAccount: any;
-    eventSubscriber: Subscription;
-
     settings = {
         mode: 'external',
         add: {
@@ -64,7 +58,13 @@ export class OnlineOrderItemComponent implements OnInit, OnDestroy {
         }
     };
 
+    onlineOrderItems: IOnlineOrderItem[];
+    onlineOrderId: number;
     data: LocalDataSource;
+    totalItemPrice: number;
+
+    currentAccount: any;
+    eventSubscriber: Subscription;
 
     constructor(
         private onlineOrderItemService: OnlineOrderItemService,
@@ -93,12 +93,18 @@ export class OnlineOrderItemComponent implements OnInit, OnDestroy {
             (res: HttpResponse<IOnlineOrderItem[]>) => {
                 this.onlineOrderItems = res.body;
                 this.data = new LocalDataSource();
+
+                this.totalItemPrice = 0;
                 for (const onlineOrderItem of res.body) {
                     onlineOrderItem.articleName = onlineOrderItem.article.name;
                     onlineOrderItem.articlePrice = onlineOrderItem.article.price;
                     onlineOrderItem.itemPrice = onlineOrderItem.article.price * onlineOrderItem.orderedAmount;
                     this.data.add(onlineOrderItem);
+
+                    this.totalItemPrice += onlineOrderItem.itemPrice;
                 }
+                console.log('test OnlineOrderItem loadAll() this.totalItemPrice', this.totalItemPrice);
+                this.eventManager.broadcast({ name: 'onlineOrderItemTotalPrice', content: this.totalItemPrice });
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );

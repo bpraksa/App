@@ -24,6 +24,7 @@ export class OnlineOrderUpdateComponent implements OnInit, OnDestroy {
     cities: ICity[];
     clients: IClient[];
     eventSubscriber: Subscription;
+    eventSubscriberTotalPrice: Subscription;
 
     constructor(
         private jhiAlertService: JhiAlertService,
@@ -46,8 +47,13 @@ export class OnlineOrderUpdateComponent implements OnInit, OnDestroy {
 
         this.eventSubscriber = this.eventManager
             .subscribe('onlineOrderItemChange', response => {
-                console.log('test OnlineOrderUpdate ngOnInit() response:', response);
+                console.log('test OnlineOrderUpdate ngOnInit() this.save() ran:', response);
                 this.save();
+            });
+        this.eventSubscriberTotalPrice = this.eventManager
+            .subscribe('onlineOrderItemTotalPrice', response => {
+                console.log('test OnlineOrderUpdate ngOnInit() totalPrice:', response.content);
+                this.onlineOrder.totalPrice = response.content;
             });
 
         this.cityService.query().subscribe(
@@ -117,6 +123,7 @@ export class OnlineOrderUpdateComponent implements OnInit, OnDestroy {
     ngOnDestroy(): void {
         console.log('test OnlineOrderUpdate ngOnDestroy() ran');
         this.eventManager.destroy(this.eventSubscriber);
+        this.eventManager.destroy(this.eventSubscriberTotalPrice);
     }
 
 }
