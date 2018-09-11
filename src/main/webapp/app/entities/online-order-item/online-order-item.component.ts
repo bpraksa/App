@@ -2,7 +2,7 @@ import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Principal } from 'app/core';
-import { IOnlineOrderItem } from 'app/shared/model/online-order-item.model';
+import { IOnlineOrderItem, OnlineOrderItem } from 'app/shared/model/online-order-item.model';
 import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
 import { LocalDataSource } from 'ng2-smart-table';
 import { Subscription } from 'rxjs';
@@ -124,27 +124,28 @@ export class OnlineOrderItemComponent implements OnInit, OnDestroy {
         this.eventManager.broadcast({ name: 'onlineOrderItemChange', content: 'On create item' });
 
         setTimeout(() => {
-            this.router.navigate(['online-order-item/new']);
+            this.router.navigate(['online-order/' + this.onlineOrderId + '/online-order-item/new']);
         }, 100);
     }
 
     onCustom(event) {
+        const item: OnlineOrderItem = event.data;
         if (event.action === 'view') {
             console.log('test OnlineOrderItem onCustom() view broadcast');
             this.eventManager.broadcast({ name: 'onlineOrderItemChange', content: 'On view item' }); // broadcast da je doslo do promene OnlineOrderItem-a
 
             setTimeout(() => {
-                this.router.navigate(['online-order-item/' + event.data.id + '/view']);
+                this.router.navigate(['online-order/' + item.onlineOrder.id + '/online-order-item/' + item.id + '/view']);
             }, 100);
         } else if (event.action === 'edit') {
             console.log('test OnlineOrderItem onCustom() edit broadcast');
             this.eventManager.broadcast({ name: 'onlineOrderItemChange', content: 'On edit item' });
 
             setTimeout(() => {
-                this.router.navigate(['online-order-item/' + event.data.id + '/edit']);
+                this.router.navigate(['online-order/' + item.onlineOrder.id + '/online-order-item/' + item.id + '/edit']);
             }, 100);
         } else if (event.action === 'delete') {
-            this.router.navigate([{ outlets: { popup: 'online-order-item/' + event.data.id + '/delete' } }]);
+            this.router.navigate([{ outlets: { popup: 'online-order-item/' + item.id + '/delete' } }]);
         }
     }
 
