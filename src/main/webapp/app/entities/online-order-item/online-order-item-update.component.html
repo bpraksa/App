@@ -1,6 +1,6 @@
 <div class="row justify-content-center">
     <div class="col-8">
-        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save(); navigateToOrderEdit()" #editForm="ngForm">
             <h2 id="jhi-online-order-item-heading" jhiTranslate="brezaApp.onlineOrderItem.home.createOrEditLabel">Create or edit an Article</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
@@ -62,7 +62,7 @@
                 </div>
             </div>
             <div>
-                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="navigateToOrderEdit()">
                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
                 </button>
                 <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">

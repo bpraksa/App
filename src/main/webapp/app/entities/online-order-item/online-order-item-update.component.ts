@@ -1,10 +1,10 @@
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ArticleService } from 'app/entities/article';
 import { OnlineOrderService } from 'app/entities/online-order';
 import { IArticle } from 'app/shared/model/article.model';
-import { IOnlineOrderItem } from 'app/shared/model/online-order-item.model';
+import { IOnlineOrderItem, OnlineOrderItem } from 'app/shared/model/online-order-item.model';
 import { IOnlineOrder } from 'app/shared/model/online-order.model';
 import { JhiAlertService } from 'ng-jhipster';
 import { Observable } from 'rxjs';
@@ -15,7 +15,7 @@ import { OnlineOrderItemService } from './online-order-item.service';
     selector: 'jhi-online-order-item-update',
     templateUrl: './online-order-item-update.component.html'
 })
-export class OnlineOrderItemUpdateComponent implements OnInit {
+export class OnlineOrderItemUpdateComponent implements OnInit, OnDestroy {
 
     private _onlineOrderItem: IOnlineOrderItem;
     isSaving: boolean;
@@ -29,10 +29,12 @@ export class OnlineOrderItemUpdateComponent implements OnInit {
         private onlineOrderItemService: OnlineOrderItemService,
         private onlineOrderService: OnlineOrderService,
         private articleService: ArticleService,
-        private activatedRoute: ActivatedRoute
+        private activatedRoute: ActivatedRoute,
+        private router: Router
     ) { }
 
     ngOnInit() {
+        console.log('test OnlineOrderItemUpdate ngOnInit()');
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ onlineOrderItem }) => {
             this.onlineOrderItem = onlineOrderItem;
@@ -66,7 +68,7 @@ export class OnlineOrderItemUpdateComponent implements OnInit {
     }
 
     calculatePrice() {
-        console.log('test OnlineOrderItem calculatePrice()');
+        console.log('test OnlineOrderItemUpdate calculatePrice()');
 
         if (this.onlineOrderItem.orderedAmount && this.onlineOrderItem.article) {
             this.onlineOrderItem.itemPrice = this.onlineOrderItem.orderedAmount * this.onlineOrderItem.article.price;
@@ -75,6 +77,27 @@ export class OnlineOrderItemUpdateComponent implements OnInit {
 
     previousState() {
         window.history.back();
+    }
+
+    navigateToOrderEdit() {
+        console.log('test OnlineOrderItemUpdate navigateToOrderEdit()');
+        this.router.navigate(['online-order/' + this.onlineOrderId + '/edit']);
+    }
+
+    onSaveAndNext() {
+        console.log('test OnlineOrderItemUpdate onSaveAndNext()');
+        this.save();
+
+        // navigacija na istu komponentu - prvo se naviguje na pocetnu stranu, pa zatim natrag na komponentu
+        // zbog navigacije, sama komponenta se brise - okida se ngOnDestroy(), i zatim se opet instancira - okida se ngOnInit()
+        this.router.navigate(['']).then(() => {
+            this.router.navigate(['online-order/' + this.onlineOrderId + '/online-order-item/new']);
+        });
+
+        // alternativno, vracanje polja na pocetno stanje, instanca komponente ostaje ista
+        // this.onlineOrderItem.orderedAmount = null;
+        // this.onlineOrderItem.itemPrice = null;
+        // this.onlineOrderItem.article = null;
     }
 
     save() {
@@ -88,16 +111,18 @@ export class OnlineOrderItemUpdateComponent implements OnInit {
 
     private subscribeToSaveResponse(result: Observable<HttpResponse<IOnlineOrderItem>>) {
         result.subscribe((res: HttpResponse<IOnlineOrderItem>) => {
-            this.onSaveSuccess();
-        }, (res: HttpErrorResponse) => this.onSaveError());
+            this.onSaveSuccess(res.body);
+        }, (err: HttpErrorResponse) => this.onSaveError(err));
     }
 
-    private onSaveSuccess() {
+    private onSaveSuccess(item: OnlineOrderItem) {
+        console.log('test OnlineOrderItemUpdate onSaveSuccess() item:', item);
         this.isSaving = false;
-        this.previousState();
+        // this.previousState();
     }
 
-    private onSaveError() {
+    private onSaveError(err: HttpErrorResponse) {
+        console.log('test OnlineOrderItemUpdate onSaveError() ERROR', err);
         this.isSaving = false;
     }
 
@@ -119,6 +144,10 @@ export class OnlineOrderItemUpdateComponent implements OnInit {
 
     set onlineOrderItem(onlineOrderItem: IOnlineOrderItem) {
         this._onlineOrderItem = onlineOrderItem;
+    }
+
+    ngOnDestroy(): void {
+        console.log('test OnlineOrderItemUpdate ngOnDestroy()');
     }
 
 }
