@@ -38,7 +38,7 @@ export const onlineOrderItemRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: 'online-order-item/:id/view',
+        path: 'online-order/:orderId/online-order-item/:id/view',
         component: OnlineOrderItemDetailComponent,
         resolve: {
             onlineOrderItem: OnlineOrderItemResolve
@@ -50,7 +50,7 @@ export const onlineOrderItemRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: 'online-order-item/new',
+        path: 'online-order/:orderId/online-order-item/new',
         component: OnlineOrderItemUpdateComponent,
         resolve: {
             onlineOrderItem: OnlineOrderItemResolve
@@ -62,7 +62,7 @@ export const onlineOrderItemRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: 'online-order-item/:id/edit',
+        path: 'online-order/:orderId/online-order-item/:id/edit',
         component: OnlineOrderItemUpdateComponent,
         resolve: {
             onlineOrderItem: OnlineOrderItemResolve
