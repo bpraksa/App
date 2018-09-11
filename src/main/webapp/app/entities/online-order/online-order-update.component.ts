@@ -74,6 +74,11 @@ export class OnlineOrderUpdateComponent implements OnInit, OnDestroy {
         window.history.back();
     }
 
+    navigateToOrderOverview() {
+        console.log('test OnlineOrderUpdate navigateToOrderOverview()');
+        this.router.navigate(['online-order/']);
+    }
+
     save() {
         this.isSaving = true;
         if (this.onlineOrder.id !== undefined) {
