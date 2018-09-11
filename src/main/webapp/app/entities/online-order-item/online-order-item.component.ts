@@ -24,9 +24,10 @@ export class OnlineOrderItemComponent implements OnInit, OnDestroy {
     settings = {
         mode: 'external',
         add: {
-            addButtonContent: 'Create a New Online Order Item'
+            addButtonContent: 'Order a New Article'
         },
         actions: {
+            columnTitle: '',
             edit: false,
             delete: false,
             custom: [

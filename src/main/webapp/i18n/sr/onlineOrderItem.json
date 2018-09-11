@@ -3,9 +3,9 @@
     "brezaApp": {
         "onlineOrderItem" : {
             "home": {
-                "title": "Online Order Items",
+                "title": "Poruceni artikli",
                 "createLabel": "Kreiraj novi Online Order Item",
-                "createOrEditLabel": "Kreirajte ili izmenite Online Order Item"
+                "createOrEditLabel": "Kreirajte ili izmenite Artikal"
             },
             "created": "Kreiran je novi Online Order Item pod nazivom {{ param }}",
             "updated": "Online Order Item pod nazivom {{ param }} je ažuriran",

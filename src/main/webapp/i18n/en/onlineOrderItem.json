@@ -3,9 +3,9 @@
     "brezaApp": {
         "onlineOrderItem" : {
             "home": {
-                "title": "Online Order Items",
+                "title": "Ordered Articles",
                 "createLabel": "Create a new Online Order Item",
-                "createOrEditLabel": "Create or edit a Online Order Item"
+                "createOrEditLabel": "Create or edit an Article"
             },
             "created": "A new Online Order Item is created with identifier {{ param }}",
             "updated": "A Online Order Item is updated with identifier {{ param }}",
