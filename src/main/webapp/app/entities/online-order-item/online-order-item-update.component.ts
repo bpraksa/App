@@ -19,6 +19,7 @@ export class OnlineOrderItemUpdateComponent implements OnInit {
 
     private _onlineOrderItem: IOnlineOrderItem;
     isSaving: boolean;
+    onlineOrderId: number;
 
     onlineorders: IOnlineOrder[];
     articles: IArticle[];
@@ -36,6 +37,11 @@ export class OnlineOrderItemUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ onlineOrderItem }) => {
             this.onlineOrderItem = onlineOrderItem;
         });
+        this.activatedRoute.params.subscribe(params => {
+            this.onlineOrderId = params['orderId'];
+        });
+        this.loadOrder();
+
         this.onlineOrderService.query().subscribe(
             (res: HttpResponse<IOnlineOrder[]>) => {
                 this.onlineorders = res.body;
@@ -45,6 +51,15 @@ export class OnlineOrderItemUpdateComponent implements OnInit {
         this.articleService.query().subscribe(
             (res: HttpResponse<IArticle[]>) => {
                 this.articles = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+    }
+
+    loadOrder() {
+        this.onlineOrderService.find(this.onlineOrderId).subscribe(
+            (res: HttpResponse<IOnlineOrder>) => {
+                this.onlineOrderItem.onlineOrder = res.body;
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
