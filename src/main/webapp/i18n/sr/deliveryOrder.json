@@ -1,0 +1,27 @@
+
+{
+    "brezaApp": {
+        "deliveryOrder" : {
+            "home": {
+                "title": "Delivery Orders",
+                "createLabel": "Kreiraj novi Delivery Order",
+                "createOrEditLabel": "Kreirajte ili izmenite Delivery Order"
+            },
+            "created": "Kreiran je novi Delivery Order pod nazivom {{ param }}",
+            "updated": "Delivery Order pod nazivom {{ param }} je ažuriran",
+            "deleted": "Delivery Order pod nazivom {{ param }} je obrisan",
+            "delete": {
+                "question": "Da li ste sigurni da želite da obrišete Delivery Order pod nazivom {{ id }}?"
+            },
+            "detail": {
+                "title": "Delivery Order"
+            },
+            "deliveryDate": "Delivery Date",
+            "status": "Status",
+            "driver": "Driver",
+            "warehouseClerk": "Warehouse Clerk",
+            "vehicle": "Vehicle",
+            "onlineOrder": "Online Order"
+        }
+    }
+}

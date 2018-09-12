@@ -1,0 +1,55 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="deliveryOrder">
+            <h2><span jhiTranslate="brezaApp.deliveryOrder.detail.title">Delivery Order</span> {{deliveryOrder.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="brezaApp.deliveryOrder.deliveryDate">Delivery Date</span></dt>
+                <dd>
+                    <span>{{deliveryOrder.deliveryDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="brezaApp.deliveryOrder.status">Status</span></dt>
+                <dd>
+                    <span>{{deliveryOrder.status}}</span>
+                </dd>
+                <dt><span jhiTranslate="brezaApp.deliveryOrder.driver">Driver</span></dt>
+                <dd>
+                    <div *ngIf="deliveryOrder.driver">
+                        <a [routerLink]="['/employee', deliveryOrder.driver?.id, 'view']">{{deliveryOrder.driver?.firstName}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="brezaApp.deliveryOrder.warehouseClerk">Warehouse Clerk</span></dt>
+                <dd>
+                    <div *ngIf="deliveryOrder.warehouseClerk">
+                        <a [routerLink]="['/employee', deliveryOrder.warehouseClerk?.id, 'view']">{{deliveryOrder.warehouseClerk?.firstName}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="brezaApp.deliveryOrder.vehicle">Vehicle</span></dt>
+                <dd>
+                    <div *ngIf="deliveryOrder.vehicle">
+                        <a [routerLink]="['/vehicle', deliveryOrder.vehicle?.id, 'view']">{{deliveryOrder.vehicle?.vehicleNumber}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="brezaApp.deliveryOrder.onlineOrder">Online Order</span></dt>
+                <dd>
+                    <div *ngIf="deliveryOrder.onlineOrder">
+                        <a [routerLink]="['/online-order', deliveryOrder.onlineOrder?.id, 'view']">{{deliveryOrder.onlineOrder?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/delivery-order', deliveryOrder.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

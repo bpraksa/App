@@ -1,0 +1,27 @@
+
+{
+    "brezaApp": {
+        "deliveryOrder" : {
+            "home": {
+                "title": "Delivery Orders",
+                "createLabel": "Create a new Delivery Order",
+                "createOrEditLabel": "Create or edit a Delivery Order"
+            },
+            "created": "A new Delivery Order is created with identifier {{ param }}",
+            "updated": "A Delivery Order is updated with identifier {{ param }}",
+            "deleted": "A Delivery Order is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Delivery Order {{ id }}?"
+            },
+            "detail": {
+                "title": "Delivery Order"
+            },
+            "deliveryDate": "Delivery Date",
+            "status": "Status",
+            "driver": "Driver",
+            "warehouseClerk": "Warehouse Clerk",
+            "vehicle": "Vehicle",
+            "onlineOrder": "Online Order"
+        }
+    }
+}
