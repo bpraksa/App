@@ -1,0 +1,25 @@
+
+{
+    "brezaApp": {
+        "deliveryOrderItem" : {
+            "home": {
+                "title": "Delivery Order Items",
+                "createLabel": "Kreiraj novi Delivery Order Item",
+                "createOrEditLabel": "Kreirajte ili izmenite Delivery Order Item"
+            },
+            "created": "Kreiran je novi Delivery Order Item pod nazivom {{ param }}",
+            "updated": "Delivery Order Item pod nazivom {{ param }} je ažuriran",
+            "deleted": "Delivery Order Item pod nazivom {{ param }} je obrisan",
+            "delete": {
+                "question": "Da li ste sigurni da želite da obrišete Delivery Order Item pod nazivom {{ id }}?"
+            },
+            "detail": {
+                "title": "Delivery Order Item"
+            },
+            "preparedAmount": "Prepared Amount",
+            "deliveredAmount": "Delivered Amount",
+            "deliveryOrder": "Delivery Order",
+            "onlineOrderItem": "Online Order Item"
+        }
+    }
+}

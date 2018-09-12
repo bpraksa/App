@@ -1,0 +1,25 @@
+
+{
+    "brezaApp": {
+        "deliveryOrderItem" : {
+            "home": {
+                "title": "Delivery Order Items",
+                "createLabel": "Create a new Delivery Order Item",
+                "createOrEditLabel": "Create or edit a Delivery Order Item"
+            },
+            "created": "A new Delivery Order Item is created with identifier {{ param }}",
+            "updated": "A Delivery Order Item is updated with identifier {{ param }}",
+            "deleted": "A Delivery Order Item is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Delivery Order Item {{ id }}?"
+            },
+            "detail": {
+                "title": "Delivery Order Item"
+            },
+            "preparedAmount": "Prepared Amount",
+            "deliveredAmount": "Delivered Amount",
+            "deliveryOrder": "Delivery Order",
+            "onlineOrderItem": "Online Order Item"
+        }
+    }
+}

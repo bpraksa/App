@@ -1,0 +1,43 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="deliveryOrderItem">
+            <h2><span jhiTranslate="brezaApp.deliveryOrderItem.detail.title">Delivery Order Item</span> {{deliveryOrderItem.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="brezaApp.deliveryOrderItem.preparedAmount">Prepared Amount</span></dt>
+                <dd>
+                    <span>{{deliveryOrderItem.preparedAmount}}</span>
+                </dd>
+                <dt><span jhiTranslate="brezaApp.deliveryOrderItem.deliveredAmount">Delivered Amount</span></dt>
+                <dd>
+                    <span>{{deliveryOrderItem.deliveredAmount}}</span>
+                </dd>
+                <dt><span jhiTranslate="brezaApp.deliveryOrderItem.deliveryOrder">Delivery Order</span></dt>
+                <dd>
+                    <div *ngIf="deliveryOrderItem.deliveryOrder">
+                        <a [routerLink]="['/delivery-order', deliveryOrderItem.deliveryOrder?.id, 'view']">{{deliveryOrderItem.deliveryOrder?.id}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="brezaApp.deliveryOrderItem.onlineOrderItem">Online Order Item</span></dt>
+                <dd>
+                    <div *ngIf="deliveryOrderItem.onlineOrderItem">
+                        <a [routerLink]="['/online-order-item', deliveryOrderItem.onlineOrderItem?.id, 'view']">{{deliveryOrderItem.onlineOrderItem?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/delivery-order-item', deliveryOrderItem.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
