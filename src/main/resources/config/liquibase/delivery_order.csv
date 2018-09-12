@@ -1,0 +1,6 @@
+id;delivery_date;status;driver_id;warehouse_clerk_id;vehicle_id;online_order_id
+1;null;NEW;null;null;null;1
+2;null;NEW;null;null;null;2
+3;null;NEW;null;null;null;3
+4;2018-09-01;ASSIGNED;2;5;4;4
+5;2018-09-01;ASSIGNED;2;4;5;5
