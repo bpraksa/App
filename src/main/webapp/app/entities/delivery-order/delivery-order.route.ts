@@ -1,20 +1,22 @@
-import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
+import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Routes } from '@angular/router';
 import { UserRouteAccessService } from 'app/core';
+import { DeliveryOrderItemComponent } from 'app/entities/delivery-order-item';
+import { DeliveryOrder, IDeliveryOrder } from 'app/shared/model/delivery-order.model';
 import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { DeliveryOrder } from 'app/shared/model/delivery-order.model';
-import { DeliveryOrderService } from './delivery-order.service';
-import { DeliveryOrderComponent } from './delivery-order.component';
+
+import { DeliveryOrderDeletePopupComponent } from './delivery-order-delete-dialog.component';
 import { DeliveryOrderDetailComponent } from './delivery-order-detail.component';
 import { DeliveryOrderUpdateComponent } from './delivery-order-update.component';
-import { DeliveryOrderDeletePopupComponent } from './delivery-order-delete-dialog.component';
-import { IDeliveryOrder } from 'app/shared/model/delivery-order.model';
+import { DeliveryOrderComponent } from './delivery-order.component';
+import { DeliveryOrderService } from './delivery-order.service';
 
 @Injectable({ providedIn: 'root' })
 export class DeliveryOrderResolve implements Resolve<IDeliveryOrder> {
-    constructor(private service: DeliveryOrderService) {}
+
+    constructor(private service: DeliveryOrderService) { }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         const id = route.params['id'] ? route.params['id'] : null;
@@ -23,6 +25,7 @@ export class DeliveryOrderResolve implements Resolve<IDeliveryOrder> {
         }
         return of(new DeliveryOrder());
     }
+
 }
 
 export const deliveryOrderRoute: Routes = [
@@ -45,7 +48,19 @@ export const deliveryOrderRoute: Routes = [
             authorities: ['ROLE_USER'],
             pageTitle: 'brezaApp.deliveryOrder.home.title'
         },
-        canActivate: [UserRouteAccessService]
+        canActivate: [UserRouteAccessService],
+        children: [
+            {
+                path: '',
+                component: DeliveryOrderItemComponent,
+                data: {
+                    authorities: ['ROLE_USER'],
+                    pageTitle: 'brezaApp.deliveryOrderItem.home.title'
+                },
+                canActivate: [UserRouteAccessService],
+                outlet: 'delivery-item'
+            }
+        ]
     },
     {
         path: 'delivery-order/new',
@@ -57,7 +72,19 @@ export const deliveryOrderRoute: Routes = [
             authorities: ['ROLE_USER'],
             pageTitle: 'brezaApp.deliveryOrder.home.title'
         },
-        canActivate: [UserRouteAccessService]
+        canActivate: [UserRouteAccessService],
+        // children: [
+        //     {
+        //         path: '',
+        //         component: DeliveryOrderItemComponent,
+        //         data: {
+        //             authorities: ['ROLE_USER'],
+        //             pageTitle: 'brezaApp.deliveryOrderItem.home.title'
+        //         },
+        //         canActivate: [UserRouteAccessService],
+        //         outlet: 'delivery-item'
+        //     }
+        // ]
     },
     {
         path: 'delivery-order/:id/edit',
@@ -69,7 +96,19 @@ export const deliveryOrderRoute: Routes = [
             authorities: ['ROLE_USER'],
             pageTitle: 'brezaApp.deliveryOrder.home.title'
         },
-        canActivate: [UserRouteAccessService]
+        canActivate: [UserRouteAccessService],
+        children: [
+            {
+                path: '',
+                component: DeliveryOrderItemComponent,
+                data: {
+                    authorities: ['ROLE_USER'],
+                    pageTitle: 'brezaApp.deliveryOrderItem.home.title'
+                },
+                canActivate: [UserRouteAccessService],
+                outlet: 'delivery-item'
+            }
+        ]
     }
 ];
 
