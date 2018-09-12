@@ -90,7 +90,7 @@ export class DeliveryOrderUpdateComponent implements OnInit {
 
     private onSaveSuccess() {
         this.isSaving = false;
-        this.previousState();
+        // this.previousState();
     }
 
     private onSaveError() {
