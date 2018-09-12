@@ -62,6 +62,7 @@ export class VehicleComponent implements OnInit, OnDestroy {
 
     data: LocalDataSource;
     vehicles: IVehicle[];
+    tableEvent: any;
 
     currentAccount: any;
     eventSubscriber: Subscription;
@@ -94,25 +95,27 @@ export class VehicleComponent implements OnInit, OnDestroy {
 
     onAdd(event) {
         console.log('test VehicleComponent onAdd() event:', event);
+        this.tableEvent = event;
         const item: Vehicle = event.newData;
 
         if (!this.isInputValid(item)) {
             event.confirm.reject(); // cannot save and must click the cancel button
         } else {
             this.save(item);
-            event.confirm.resolve(item); // updates table and localDataSource
+            // event.confirm.resolve(item); // updates table and localDataSource
         }
     }
 
     onEdit(event) {
         console.log('test VehicleComponent onEdit() event:', event);
+        this.tableEvent = event;
         const item: Vehicle = event.newData;
 
         if (!this.isInputValid(item)) {
             event.confirm.reject();
         } else {
             this.save(item);
-            event.confirm.resolve(item);
+            // event.confirm.resolve(item);
         }
     }
 
@@ -149,6 +152,7 @@ export class VehicleComponent implements OnInit, OnDestroy {
     }
 
     private onSaveSuccess(item: IVehicle) {
+        this.tableEvent.confirm.resolve(item); // updates table and localDataSource
         console.log('test VehicleComponent onSaveSuccess() item:', item);
     }
 
