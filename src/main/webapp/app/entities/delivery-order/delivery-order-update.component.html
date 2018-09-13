@@ -22,7 +22,7 @@
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="brezaApp.deliveryOrder.status" for="field_status">Status</label>
                     <input type="text" class="form-control" name="status" id="field_status"
-                        [(ngModel)]="deliveryOrder.status" required/>
+                        [(ngModel)]="deliveryOrder.status" required readonly/>
                     <div [hidden]="!(editForm.controls.status?.dirty && editForm.controls.status?.invalid)">
                         <small class="form-text text-danger"
                         [hidden]="!editForm.controls.status?.errors?.required" jhiTranslate="entity.validation.required">
