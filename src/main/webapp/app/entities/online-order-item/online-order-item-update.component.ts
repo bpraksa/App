@@ -20,6 +20,7 @@ export class OnlineOrderItemUpdateComponent implements OnInit, OnDestroy {
     private _onlineOrderItem: IOnlineOrderItem;
     isSaving: boolean;
     onlineOrderId: number;
+    isNewForm: boolean;
 
     onlineorders: IOnlineOrder[];
     articles: IArticle[];
@@ -39,6 +40,7 @@ export class OnlineOrderItemUpdateComponent implements OnInit, OnDestroy {
         this.activatedRoute.data.subscribe(({ onlineOrderItem }) => {
             this.onlineOrderItem = onlineOrderItem;
         });
+        this.isNewForm = this.router.url.includes('new');
         this.activatedRoute.params.subscribe(params => {
             this.onlineOrderId = params['orderId'];
         });
