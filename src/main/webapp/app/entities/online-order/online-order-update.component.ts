@@ -3,12 +3,13 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CityService } from 'app/entities/city';
 import { ClientService } from 'app/entities/client';
+import { DeliveryOrderService } from 'app/entities/delivery-order';
 import { ICity } from 'app/shared/model/city.model';
 import { IClient } from 'app/shared/model/client.model';
+import { DeliveryOrder, IDeliveryOrder } from 'app/shared/model/delivery-order.model';
 import { IOnlineOrder, OnlineOrder } from 'app/shared/model/online-order.model';
 import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
 import { Observable, Subscription } from 'rxjs';
-
 import { OnlineOrderService } from './online-order.service';
 
 @Component({
@@ -20,6 +21,7 @@ export class OnlineOrderUpdateComponent implements OnInit, OnDestroy {
     private _onlineOrder: IOnlineOrder;
     isSaving: boolean;
     isNewForm: boolean;
+    isOrderComplete: boolean; // treba da bude deo entiteta OnlineOrder, kako bi se cuvao u bazi
 
     cities: ICity[];
     clients: IClient[];
@@ -31,6 +33,7 @@ export class OnlineOrderUpdateComponent implements OnInit, OnDestroy {
         private onlineOrderService: OnlineOrderService,
         private cityService: CityService,
         private clientService: ClientService,
+        private deliveryOrderService: DeliveryOrderService,
         private activatedRoute: ActivatedRoute,
         private router: Router,
         private eventManager: JhiEventManager
@@ -39,6 +42,7 @@ export class OnlineOrderUpdateComponent implements OnInit, OnDestroy {
     ngOnInit() {
         console.log('test OnlineOrderUpdate ngOnInit() ran');
         this.isSaving = false;
+        this.isOrderComplete = false;
         this.activatedRoute.data.subscribe(({ onlineOrder }) => {
             this.onlineOrder = onlineOrder;
         });
@@ -94,10 +98,13 @@ export class OnlineOrderUpdateComponent implements OnInit, OnDestroy {
         }, (err: HttpErrorResponse) => this.onSaveError(err));
     }
 
-    private onSaveSuccess(item: OnlineOrder) {
-        console.log('test OnlineOrderUpdate onSaveSuccess() item:', item);
+    private onSaveSuccess(onlineOrder: OnlineOrder) {
+        console.log('test OnlineOrderUpdate onSaveSuccess() onlineOrder:', onlineOrder);
         this.isSaving = false;
         // this.previousState();
+        if (this.isOrderComplete) {
+            this.createDeliveryOrder(onlineOrder);
+        }
     }
 
     private onSaveError(err: HttpErrorResponse) {
@@ -107,6 +114,17 @@ export class OnlineOrderUpdateComponent implements OnInit, OnDestroy {
 
     private onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    createDeliveryOrder(onlineOrder: OnlineOrder) {
+        this.isOrderComplete = true;
+        const deliveryOrder = new DeliveryOrder();
+        deliveryOrder.status = 'NEW';
+        deliveryOrder.onlineOrder = onlineOrder;
+
+        this.deliveryOrderService.create((deliveryOrder)).subscribe((res: HttpResponse<IDeliveryOrder>) => {
+            console.log('test OnlineOrderUpdate saveDeliveryOrder() onlineOrder:', res.body);
+        }, (err: HttpErrorResponse) => this.onSaveError(err));
     }
 
     trackCityById(index: number, item: ICity) {

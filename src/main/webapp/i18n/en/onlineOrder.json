@@ -20,7 +20,8 @@
             "phoneNumber": "Phone Number",
             "totalPrice": "Total Price",
             "city": "City",
-            "client": "Client"
+            "client": "Client",
+            "complete": "Complete Order"
         }
     }
 }
