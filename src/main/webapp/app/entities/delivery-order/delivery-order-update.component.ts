@@ -1,46 +1,56 @@
-import { Component, OnInit } from '@angular/core';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { JhiAlertService } from 'ng-jhipster';
-
-import { IDeliveryOrder } from 'app/shared/model/delivery-order.model';
-import { DeliveryOrderService } from './delivery-order.service';
-import { IEmployee } from 'app/shared/model/employee.model';
+import { DeliveryOrderItemService } from 'app/entities/delivery-order-item';
 import { EmployeeService } from 'app/entities/employee';
-import { IVehicle } from 'app/shared/model/vehicle.model';
-import { VehicleService } from 'app/entities/vehicle';
-import { IOnlineOrder } from 'app/shared/model/online-order.model';
 import { OnlineOrderService } from 'app/entities/online-order';
+import { OnlineOrderItemService } from 'app/entities/online-order-item';
+import { VehicleService } from 'app/entities/vehicle';
+import { DeliveryOrderItem, IDeliveryOrderItem } from 'app/shared/model/delivery-order-item.model';
+import { DeliveryOrder, IDeliveryOrder } from 'app/shared/model/delivery-order.model';
+import { IEmployee } from 'app/shared/model/employee.model';
+import { IOnlineOrderItem, OnlineOrderItem } from 'app/shared/model/online-order-item.model';
+import { IOnlineOrder } from 'app/shared/model/online-order.model';
+import { IVehicle } from 'app/shared/model/vehicle.model';
+import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
+import { Observable } from 'rxjs';
+import { DeliveryOrderService } from './delivery-order.service';
 
 @Component({
     selector: 'jhi-delivery-order-update',
     templateUrl: './delivery-order-update.component.html'
 })
-export class DeliveryOrderUpdateComponent implements OnInit {
+export class DeliveryOrderUpdateComponent implements OnInit, OnDestroy {
+
     private _deliveryOrder: IDeliveryOrder;
     isSaving: boolean;
 
     employees: IEmployee[];
-
     vehicles: IVehicle[];
-
     onlineorders: IOnlineOrder[];
     deliveryDateDp: any;
 
     constructor(
         private jhiAlertService: JhiAlertService,
         private deliveryOrderService: DeliveryOrderService,
+        private deliveryOrderItemService: DeliveryOrderItemService,
+        private onlineOrderItemService: OnlineOrderItemService,
         private employeeService: EmployeeService,
         private vehicleService: VehicleService,
         private onlineOrderService: OnlineOrderService,
-        private activatedRoute: ActivatedRoute
-    ) {}
+        private activatedRoute: ActivatedRoute,
+        private eventManager: JhiEventManager
+    ) { }
 
     ngOnInit() {
+        console.log('test DeliveryOrderUpdate ngOnInit() ran');
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ deliveryOrder }) => {
             this.deliveryOrder = deliveryOrder;
+            if (this.deliveryOrder && this.deliveryOrder.status === 'NEW') {
+                this.deliveryOrder.status = 'ITEMS_CREATED';
+                this.getOnlineOrderItems();
+            }
         });
         this.employeeService.query().subscribe(
             (res: HttpResponse<IEmployee[]>) => {
@@ -71,12 +81,36 @@ export class DeliveryOrderUpdateComponent implements OnInit {
         );
     }
 
+    getOnlineOrderItems() {
+        this.onlineOrderItemService.findByOnlineOrderId(this.deliveryOrder.onlineOrder.id).subscribe((res: HttpResponse<IOnlineOrderItem[]>) => {
+            const onlineOrderItems: OnlineOrderItem[] = res.body;
+            console.log('test DeliveryOrderUpdate getOnlineOrderItems() onlineOrderItems:', onlineOrderItems);
+
+            onlineOrderItems.forEach(orderItem => {
+                this.createDeliveryOrderItem(orderItem);
+            });
+
+            this.eventManager.broadcast({ name: 'deliveryOrderItemListModification', content: 'OK' });
+        }, (err: HttpErrorResponse) => this.onSaveError(err));
+    }
+
+    createDeliveryOrderItem(orderItem: OnlineOrderItem) {
+        const deliveryOrderItem = new DeliveryOrderItem();
+        deliveryOrderItem.onlineOrderItem = orderItem;
+        deliveryOrderItem.deliveryOrder = this.deliveryOrder;
+
+        this.deliveryOrderItemService.create((deliveryOrderItem)).subscribe((res: HttpResponse<IDeliveryOrderItem>) => {
+            console.log('test DeliveryOrderUpdate createDeliveryOrderItem() item:', res.body);
+        }, (err: HttpErrorResponse) => this.onSaveError(err));
+    }
+
     previousState() {
         window.history.back();
     }
 
     save() {
         this.isSaving = true;
+
         if (this.deliveryOrder.id !== undefined) {
             this.subscribeToSaveResponse(this.deliveryOrderService.update(this.deliveryOrder));
         } else {
@@ -85,15 +119,19 @@ export class DeliveryOrderUpdateComponent implements OnInit {
     }
 
     private subscribeToSaveResponse(result: Observable<HttpResponse<IDeliveryOrder>>) {
-        result.subscribe((res: HttpResponse<IDeliveryOrder>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
+        result.subscribe((res: HttpResponse<IDeliveryOrder>) => {
+            this.onSaveSuccess(res.body);
+        }, (err: HttpErrorResponse) => this.onSaveError(err));
     }
 
-    private onSaveSuccess() {
+    private onSaveSuccess(deliveryOrder: DeliveryOrder) {
+        console.log('test DeliveryOrderUpdate onSaveSuccess() deliveryOrder:', deliveryOrder);
         this.isSaving = false;
         // this.previousState();
     }
 
-    private onSaveError() {
+    private onSaveError(err: HttpErrorResponse) {
+        console.log('test DeliveryOrderUpdate onSaveError() ERROR:', err);
         this.isSaving = false;
     }
 
@@ -112,6 +150,7 @@ export class DeliveryOrderUpdateComponent implements OnInit {
     trackOnlineOrderById(index: number, item: IOnlineOrder) {
         return item.id;
     }
+
     get deliveryOrder() {
         return this._deliveryOrder;
     }
@@ -119,4 +158,9 @@ export class DeliveryOrderUpdateComponent implements OnInit {
     set deliveryOrder(deliveryOrder: IDeliveryOrder) {
         this._deliveryOrder = deliveryOrder;
     }
+
+    ngOnDestroy(): void {
+        console.log('test DeliveryOrderUpdate ngOnDestroy() ran');
+    }
+
 }

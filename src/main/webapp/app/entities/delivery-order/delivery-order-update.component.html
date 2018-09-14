@@ -70,7 +70,7 @@
             <router-outlet name="delivery-item"></router-outlet>
 
             <div>
-                <button type="button" id="cancel-save" class="btn btn-secondary" [routerLink]="['/delivery-order']">
+                <button type="button" id="cancel-save" class="btn btn-secondary" [routerLink]="['/delivery-order']" (click)="save()">
                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
                 </button>
                 <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary" [routerLink]="['/delivery-order']">
