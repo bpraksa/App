@@ -1,12 +1,11 @@
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Principal } from 'app/core';
 import { IDeliveryOrderItem } from 'app/shared/model/delivery-order-item.model';
 import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
 import { Subscription } from 'rxjs';
-
 import { DeliveryOrderItemService } from './delivery-order-item.service';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'jhi-delivery-order-item',

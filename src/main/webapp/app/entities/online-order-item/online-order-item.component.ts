@@ -129,7 +129,7 @@ export class OnlineOrderItemComponent implements OnInit, OnDestroy {
         console.log('test OnlineOrderItem onCreate() broadcast');
         this.eventManager.broadcast({ name: 'onlineOrderItemChange', content: 'On create item' });
 
-        setTimeout(() => {
+        setTimeout(() => { // kratak timeout da se izbegnu problemi sa broadcastom zbog navigacije i gasenja komponente
             this.router.navigate(['online-order/' + this.onlineOrderId + '/online-order-item/new']);
         }, 100);
     }

@@ -40,18 +40,25 @@ export class OnlineOrderItemUpdateComponent implements OnInit, OnDestroy {
         this.activatedRoute.data.subscribe(({ onlineOrderItem }) => {
             this.onlineOrderItem = onlineOrderItem;
         });
+        this.determineParams();
+        this.loadOrder();
+        this.loadData();
+    }
+
+    determineParams() {
         this.isNewForm = this.router.url.includes('new');
         this.activatedRoute.params.subscribe(params => {
             this.onlineOrderId = params['orderId'];
         });
-        this.loadOrder();
+    }
 
-        this.onlineOrderService.query().subscribe(
-            (res: HttpResponse<IOnlineOrder[]>) => {
-                this.onlineorders = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
+    loadData() {
+        // this.onlineOrderService.query().subscribe(
+        //     (res: HttpResponse<IOnlineOrder[]>) => {
+        //         this.onlineorders = res.body;
+        //     },
+        //     (res: HttpErrorResponse) => this.onError(res.message)
+        // );
         this.articleService.query().subscribe(
             (res: HttpResponse<IArticle[]>) => {
                 this.articles = res.body;
@@ -132,9 +139,9 @@ export class OnlineOrderItemUpdateComponent implements OnInit, OnDestroy {
         this.jhiAlertService.error(errorMessage, null, null);
     }
 
-    trackOnlineOrderById(index: number, item: IOnlineOrder) {
-        return item.id;
-    }
+    // trackOnlineOrderById(index: number, item: IOnlineOrder) {
+    //     return item.id;
+    // }
 
     trackArticleById(index: number, item: IArticle) {
         return item.id;

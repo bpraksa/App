@@ -55,8 +55,7 @@
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="brezaApp.deliveryOrder.onlineOrder" for="field_onlineOrder">Online Order</label>
                     <select class="form-control" id="field_onlineOrder" name="onlineOrder" [(ngModel)]="deliveryOrder.onlineOrder" required [disabled]="true" >
-                        <option *ngIf="!editForm.value.onlineOrder" [ngValue]="null" selected></option>
-                        <option [ngValue]="onlineOrderOption.id === deliveryOrder.onlineOrder?.id ? deliveryOrder.onlineOrder : onlineOrderOption" *ngFor="let onlineOrderOption of onlineorders; trackBy: trackOnlineOrderById">{{onlineOrderOption.id}}</option>
+                        <option [ngValue]="deliveryOrder.onlineOrder">{{deliveryOrder.onlineOrder.id}}</option>
                     </select>
                 </div>
                 <div [hidden]="!(editForm.controls.onlineOrder?.dirty && editForm.controls.onlineOrder?.invalid)">

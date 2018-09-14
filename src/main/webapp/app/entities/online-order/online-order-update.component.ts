@@ -49,6 +49,11 @@ export class OnlineOrderUpdateComponent implements OnInit, OnDestroy {
         console.log('test OnlineOrderUpdate ngOnInit() this.router.url:', this.router.url);
         this.isNewForm = this.router.url.includes('new');
 
+        this.subscribeToChanges();
+        this.loadData();
+    }
+
+    subscribeToChanges() {
         this.eventSubscriber = this.eventManager
             .subscribe('onlineOrderItemChange', response => {
                 console.log('test OnlineOrderUpdate ngOnInit() this.save() ran:', response);
@@ -59,7 +64,9 @@ export class OnlineOrderUpdateComponent implements OnInit, OnDestroy {
                 console.log('test OnlineOrderUpdate ngOnInit() totalPrice:', response.content);
                 this.onlineOrder.totalPrice = response.content;
             });
+    }
 
+    loadData() {
         this.cityService.query().subscribe(
             (res: HttpResponse<ICity[]>) => {
                 this.cities = res.body;
@@ -102,6 +109,9 @@ export class OnlineOrderUpdateComponent implements OnInit, OnDestroy {
         console.log('test OnlineOrderUpdate onSaveSuccess() onlineOrder:', onlineOrder);
         this.isSaving = false;
         // this.previousState();
+
+        // menja se klikom na Complete Order dugme, sluzi da se kreira DeliveryOrder samo jednom i da posle forma bude readonly
+        // (trenutno ne radi jer se ne cuva u bazu, tj ne postoji u entitetu i treba ga dodati - ili dodati polje status koje ce da obavlja tu funkciju)
         if (this.isOrderComplete) {
             this.createDeliveryOrder(onlineOrder);
         }
@@ -123,11 +133,11 @@ export class OnlineOrderUpdateComponent implements OnInit, OnDestroy {
         deliveryOrder.onlineOrder = onlineOrder;
 
         this.deliveryOrderService.create((deliveryOrder)).subscribe((res: HttpResponse<IDeliveryOrder>) => {
-            console.log('test OnlineOrderUpdate saveDeliveryOrder() onlineOrder:', res.body);
+            console.log('test OnlineOrderUpdate saveDeliveryOrder() deliveryOrder:', res.body);
         }, (err: HttpErrorResponse) => this.onSaveError(err));
     }
 
-    trackCityById(index: number, item: ICity) {
+    trackCityById(index: number, item: ICity) { // koristi Angular u html-u komponente pri for petljama da prati promene u podacima niza for petlje
         return item.id;
     }
 
@@ -145,6 +155,8 @@ export class OnlineOrderUpdateComponent implements OnInit, OnDestroy {
 
     ngOnDestroy(): void {
         console.log('test OnlineOrderUpdate ngOnDestroy() ran');
+        // svaki eventSubscriber mora eksplicitno da se unisti, inace ostaje za vreme trajanja programa, i svaki od njih ce slusati za broadcast i
+        // pokrenuti kod iz callback funkcije
         this.eventManager.destroy(this.eventSubscriber);
         this.eventManager.destroy(this.eventSubscriberTotalPrice);
     }

@@ -1,10 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import { Subscription } from 'rxjs';
-import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
-
-import { IDeliveryOrder } from 'app/shared/model/delivery-order.model';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Principal } from 'app/core';
+import { IDeliveryOrder } from 'app/shared/model/delivery-order.model';
+import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
+import { Subscription } from 'rxjs';
 import { DeliveryOrderService } from './delivery-order.service';
 
 @Component({
@@ -12,6 +11,7 @@ import { DeliveryOrderService } from './delivery-order.service';
     templateUrl: './delivery-order.component.html'
 })
 export class DeliveryOrderComponent implements OnInit, OnDestroy {
+
     deliveryOrders: IDeliveryOrder[];
     currentAccount: any;
     eventSubscriber: Subscription;
@@ -21,7 +21,15 @@ export class DeliveryOrderComponent implements OnInit, OnDestroy {
         private jhiAlertService: JhiAlertService,
         private eventManager: JhiEventManager,
         private principal: Principal
-    ) {}
+    ) { }
+
+    ngOnInit() {
+        this.loadAll();
+        this.principal.identity().then(account => {
+            this.currentAccount = account;
+        });
+        this.registerChangeInDeliveryOrders();
+    }
 
     loadAll() {
         this.deliveryOrderService.query().subscribe(
@@ -32,27 +40,20 @@ export class DeliveryOrderComponent implements OnInit, OnDestroy {
         );
     }
 
-    ngOnInit() {
-        this.loadAll();
-        this.principal.identity().then(account => {
-            this.currentAccount = account;
-        });
-        this.registerChangeInDeliveryOrders();
-    }
-
-    ngOnDestroy() {
-        this.eventManager.destroy(this.eventSubscriber);
+    registerChangeInDeliveryOrders() {
+        this.eventSubscriber = this.eventManager.subscribe('deliveryOrderListModification', response => this.loadAll());
     }
 
     trackId(index: number, item: IDeliveryOrder) {
         return item.id;
     }
 
-    registerChangeInDeliveryOrders() {
-        this.eventSubscriber = this.eventManager.subscribe('deliveryOrderListModification', response => this.loadAll());
-    }
-
     private onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
     }
+
+    ngOnDestroy() {
+        this.eventManager.destroy(this.eventSubscriber);
+    }
+
 }

@@ -3,7 +3,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DeliveryOrderItemService } from 'app/entities/delivery-order-item';
 import { EmployeeService } from 'app/entities/employee';
-import { OnlineOrderService } from 'app/entities/online-order';
 import { OnlineOrderItemService } from 'app/entities/online-order-item';
 import { VehicleService } from 'app/entities/vehicle';
 import { DeliveryOrderItem, IDeliveryOrderItem } from 'app/shared/model/delivery-order-item.model';
@@ -27,7 +26,6 @@ export class DeliveryOrderUpdateComponent implements OnInit, OnDestroy {
 
     employees: IEmployee[];
     vehicles: IVehicle[];
-    onlineorders: IOnlineOrder[];
     deliveryDateDp: any;
 
     constructor(
@@ -37,7 +35,6 @@ export class DeliveryOrderUpdateComponent implements OnInit, OnDestroy {
         private onlineOrderItemService: OnlineOrderItemService,
         private employeeService: EmployeeService,
         private vehicleService: VehicleService,
-        private onlineOrderService: OnlineOrderService,
         private activatedRoute: ActivatedRoute,
         private eventManager: JhiEventManager
     ) { }
@@ -48,10 +45,14 @@ export class DeliveryOrderUpdateComponent implements OnInit, OnDestroy {
         this.activatedRoute.data.subscribe(({ deliveryOrder }) => {
             this.deliveryOrder = deliveryOrder;
             if (this.deliveryOrder && this.deliveryOrder.status === 'NEW') {
-                this.deliveryOrder.status = 'ITEMS_CREATED';
+                this.deliveryOrder.status = 'ITEMS_CREATED'; // pri prvom pristupu se menja status, tako da se samo jednom kreiraju itemi
                 this.getOnlineOrderItems();
             }
         });
+        this.loadData();
+    }
+
+    loadData() {
         this.employeeService.query().subscribe(
             (res: HttpResponse<IEmployee[]>) => {
                 this.employees = res.body;
@@ -64,21 +65,23 @@ export class DeliveryOrderUpdateComponent implements OnInit, OnDestroy {
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
-        this.onlineOrderService.query({ filter: 'deliveryorder-is-null' }).subscribe(
-            (res: HttpResponse<IOnlineOrder[]>) => {
-                if (!this.deliveryOrder.onlineOrder || !this.deliveryOrder.onlineOrder.id) {
-                    this.onlineorders = res.body;
-                } else {
-                    this.onlineOrderService.find(this.deliveryOrder.onlineOrder.id).subscribe(
-                        (subRes: HttpResponse<IOnlineOrder>) => {
-                            this.onlineorders = [subRes.body].concat(res.body);
-                        },
-                        (subRes: HttpErrorResponse) => this.onError(subRes.message)
-                    );
-                }
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
+        // zato sto nam nije potrebna selekcija iz svih ordera, mozemo da sklonimo upit i u html direktno da ubacimo vrednost this.deliveryOrder.onlineOrder
+
+        // this.onlineOrderService.query({ filter: 'deliveryorder-is-null' }).subscribe(
+        //     (res: HttpResponse<IOnlineOrder[]>) => {
+        //         if (!this.deliveryOrder.onlineOrder || !this.deliveryOrder.onlineOrder.id) {
+        //             this.onlineorders = res.body;
+        //         } else {
+        //             this.onlineOrderService.find(this.deliveryOrder.onlineOrder.id).subscribe(
+        //                 (subRes: HttpResponse<IOnlineOrder>) => {
+        //                     this.onlineorders = [subRes.body].concat(res.body);
+        //                 },
+        //                 (subRes: HttpErrorResponse) => this.onError(subRes.message)
+        //             );
+        //         }
+        //     },
+        //     (res: HttpErrorResponse) => this.onError(res.message)
+        // );
     }
 
     getOnlineOrderItems() {
@@ -86,10 +89,11 @@ export class DeliveryOrderUpdateComponent implements OnInit, OnDestroy {
             const onlineOrderItems: OnlineOrderItem[] = res.body;
             console.log('test DeliveryOrderUpdate getOnlineOrderItems() onlineOrderItems:', onlineOrderItems);
 
-            onlineOrderItems.forEach(orderItem => {
+            onlineOrderItems.forEach(orderItem => { // za svaki onlineOrderItem kreiramo deliveryOrderItem
                 this.createDeliveryOrderItem(orderItem);
             });
 
+            // obavestavamo DeliveryOrderItemComponent da je doslo do promene podataka
             this.eventManager.broadcast({ name: 'deliveryOrderItemListModification', content: 'OK' });
         }, (err: HttpErrorResponse) => this.onSaveError(err));
     }
@@ -144,10 +148,6 @@ export class DeliveryOrderUpdateComponent implements OnInit, OnDestroy {
     }
 
     trackVehicleById(index: number, item: IVehicle) {
-        return item.id;
-    }
-
-    trackOnlineOrderById(index: number, item: IOnlineOrder) {
         return item.id;
     }
 
